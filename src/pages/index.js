@@ -3,11 +3,12 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Image from "next/image";
 import Link from "next/link";
+import { OpenInNew } from "@mui/icons-material";
 
 export default function Home() {
   return (
     <>
-      <Header />
+      <Header isLoggedIn={false} />
 
       <Grid container height={"80vh"} mx={"auto"}>
         <Grid item xs={6} alignSelf={"center"}>
@@ -20,11 +21,13 @@ export default function Home() {
               To continue, Please
             </Typography>
             <Stack direction={"row"} mt={4} columnGap={3} alignItems={"center"}>
-              <Button variant="contained">
+              <Button variant="contained" endIcon={<OpenInNew />}>
                 <Link href={"/signin"}>Sign In</Link>
               </Button>{" "}
               {"Or"}
-              <Button variant="outlined">Create a new Account</Button>
+              <Button variant="outlined" endIcon={<OpenInNew />}>
+                Create a new Account
+              </Button>
             </Stack>
           </Box>
         </Grid>

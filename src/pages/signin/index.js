@@ -42,13 +42,13 @@ export default function IndexPage() {
 
   return (
     <>
-      <Header />
+      <Header isLoggedIn={true} />
       <Head>
         <title>Signin to APSIT Community</title>
         <meta name={"description"} content={"Signin to APSIT Community"} />
       </Head>
-      <Box mt={8}>
-        <Typography m={2} variant={"h3"} textAlign={"center"} fontWeight={700}>
+      <Box>
+        <Typography mt={"8rem"} variant={"h3"} textAlign={"center"}>
           Welcome back, we missed you!
         </Typography>
         <form id="signIn_form">
