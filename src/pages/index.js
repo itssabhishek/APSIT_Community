@@ -26,7 +26,7 @@ export default function Home() {
               </Button>{" "}
               {"Or"}
               <Button variant="outlined" endIcon={<OpenInNew />}>
-                Create a new Account
+                <Link href={"/newaccount"}>Create a new Account</Link>
               </Button>
             </Stack>
           </Box>
