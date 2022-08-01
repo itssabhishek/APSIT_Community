@@ -8,11 +8,11 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
 export default function IndexPage() {
-  //Def
+  //Refs
   const moodleIdRef = useRef("");
   const passwordRef = useRef("");
 
-  //states
+  //States
   const [moodleError, setMoodleError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
