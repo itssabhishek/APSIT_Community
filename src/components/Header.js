@@ -10,7 +10,7 @@ import {
 } from "@mui/icons-material";
 
 // Custom TextField
-const CssTextField = styled(TextField)({
+const SearchBox = styled(TextField)({
   "& label": {
     color: "white",
   },
@@ -80,7 +80,7 @@ const Header = (props) => (
             justifyContent: "space-between",
           }}
         >
-          <CssTextField
+          <SearchBox
             label="Search"
             id="navbar_loggedin-search--input"
             variant="standard"

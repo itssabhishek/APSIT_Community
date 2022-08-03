@@ -15,6 +15,17 @@ a {
     box-sizing: border-box;
 }
 
+.chat_text::before {
+    content: '';
+    height: 10px;
+    width: 10px;
+    background-color: inherit;
+    position: absolute;
+    left: -5px;
+    top: 3px;
+    transform: rotate(45deg);
+}
+
 /*@media (prefers-color-scheme: dark) {*/
 /*  html {*/
 /*    color-scheme: dark;*/
