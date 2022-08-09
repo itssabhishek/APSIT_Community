@@ -6,8 +6,13 @@ import Image from "next/image";
 import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import { connect } from "react-redux";
+import { getUserDetails } from "../../../redux/actions/authActions";
 
-export default function IndexPage() {
+function IndexPage(props) {
+  //Accessing the props
+  const { name, moodleID, getUserDetails } = props;
+
   //Refs
   const moodleIdRef = useRef("");
   const passwordRef = useRef("");
@@ -30,11 +35,15 @@ export default function IndexPage() {
     !enteredPassword || enteredPassword.length < 8
       ? setPasswordError(true)
       : setPasswordError(false);
+
+    !moodleError &&
+      !passwordError &&
+      getUserDetails({ name: enteredMoodleId, moodleID: enteredPassword });
   };
 
   return (
     <>
-      <Header isLoggedIn={true} />
+      <Header />
       <Head>
         <title>Signin to APSIT Community</title>
         <meta name={"description"} content={"Signin to APSIT Community"} />
@@ -116,3 +125,16 @@ export default function IndexPage() {
     </>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    name: state.authReducer.name,
+    moodleID: state.authReducer.moodleID,
+  };
+};
+
+const mapDispatchToProps = {
+  getUserDetails,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(IndexPage);
