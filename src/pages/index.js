@@ -21,13 +21,17 @@ export default function Home() {
               To continue, Please
             </Typography>
             <Stack direction={"row"} mt={4} columnGap={3} alignItems={"center"}>
-              <Button variant="contained" endIcon={<OpenInNew />}>
-                <Link href={"/signin"}>Sign In</Link>
-              </Button>{" "}
+              <Link href={"/signin"}>
+                <Button variant="contained" endIcon={<OpenInNew />}>
+                  Sign In
+                </Button>
+              </Link>{" "}
               {"Or"}
-              <Button variant="outlined" endIcon={<OpenInNew />}>
-                <Link href={"/newaccount"}>Create a new Account</Link>
-              </Button>
+              <Link href={"/newaccount"}>
+                <Button variant="outlined" endIcon={<OpenInNew />}>
+                  Create a new Account
+                </Button>
+              </Link>
             </Stack>
           </Box>
         </Grid>

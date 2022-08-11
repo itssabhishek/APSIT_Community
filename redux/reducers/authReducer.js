@@ -7,7 +7,7 @@ import {
 export const authReducer = (
   state = {
     name: "",
-    moodleID: "",
+    moodleId: "",
   },
   action
 ) => {
@@ -16,13 +16,13 @@ export const authReducer = (
       return {
         ...state,
         name: action.payload.name,
-        moodleID: action.payload.moodleID,
+        moodleId: action.payload.moodleId,
       };
     case USER_LOGGED_OUT:
       return {
         ...state,
         name: "",
-        moodleID: "",
+        moodleId: "",
       };
 
     case SIGN_IN_FAILED:
