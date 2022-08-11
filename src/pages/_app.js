@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { wrapper } from "../../redux/store";
 
 const theme = createTheme({
   typography: {
@@ -15,4 +16,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

@@ -1,4 +1,14 @@
-import { Box, Button, Card, Stack, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  Card,
+  Snackbar,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import SendIcon from "@mui/icons-material/Send";
 import { useRef, useState } from "react";
 import Link from "next/link";
@@ -6,8 +16,14 @@ import Image from "next/image";
 import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import { connect } from "react-redux";
+import { getUserDetails } from "../../../redux/actions/authActions";
+import { useRouter } from "next/router";
 
-export default function IndexPage() {
+function IndexPage(props) {
+  //Accessing the props
+  const { name, moodleId, getUserDetails } = props;
+
   //Refs
   const moodleIdRef = useRef("");
   const passwordRef = useRef("");
@@ -15,8 +31,36 @@ export default function IndexPage() {
   //States
   const [moodleError, setMoodleError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [spinner, setSpinner] = useState(false);
 
-  const submitHandler = (e) => {
+  //Initialising instance of Router
+  const router = useRouter();
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+  //Making post request to check if user exist or not
+  const getUser = async (moodleId, password) => {
+    return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/find-user`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        moodleId: moodleId,
+        password: password,
+      }),
+    });
+  };
+  const submitHandler = async (e) => {
     e.preventDefault();
 
     //Take values from inputs
@@ -30,17 +74,55 @@ export default function IndexPage() {
     !enteredPassword || enteredPassword.length < 8
       ? setPasswordError(true)
       : setPasswordError(false);
+
+    if (!moodleError && !passwordError) {
+      //Making spinner visible
+      setSpinner(true);
+
+      const response = await getUser(enteredMoodleId, enteredPassword);
+      if (response.status === 200) {
+        const responseObject = await response.json();
+        getUserDetails({
+          name: responseObject.name,
+          moodleId: responseObject.moodleId,
+        });
+
+        //Disabling spinner
+        setSpinner(false);
+
+        //Redirecting to Home page
+        await router.push("/home");
+      } else {
+        console.log(response.status);
+
+        //Disabling spinner
+        setSpinner(false);
+
+        //Opening error message
+        setOpen(true);
+      }
+    }
   };
 
   return (
     <>
-      <Header isLoggedIn={true} />
+      <Header />
       <Head>
         <title>Signin to APSIT Community</title>
         <meta name={"description"} content={"Signin to APSIT Community"} />
       </Head>
+      <Snackbar
+        open={open}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        autoHideDuration={4000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          Wrong credentials! Try again.
+        </Alert>
+      </Snackbar>
       <Box>
-        <Typography mt={"8rem"} variant={"h3"} textAlign={"center"}>
+        <Typography mt={"5rem"} variant={"h3"} textAlign={"center"}>
           Welcome back, we missed you!
         </Typography>
         <form id="signIn_form">
@@ -66,6 +148,7 @@ export default function IndexPage() {
                 height="60px"
                 width="60px"
               />
+
               <TextField
                 id="user_moodleId"
                 label="Your Moodle ID"
@@ -85,13 +168,24 @@ export default function IndexPage() {
                 error={passwordError}
                 helperText={passwordError ? "Please enter password." : ""}
               />
-              <Button
-                variant="contained"
-                endIcon={<SendIcon />}
-                onClick={submitHandler}
-              >
-                Login
-              </Button>
+              {spinner ? (
+                <Box textAlign={"center"}>
+                  <CircularProgress
+                    sx={{
+                      color: "primary.main",
+                    }}
+                  />
+                </Box>
+              ) : (
+                <Button
+                  variant="contained"
+                  endIcon={<SendIcon />}
+                  onClick={submitHandler}
+                >
+                  Login
+                </Button>
+              )}
+
               <Typography
                 variant={"caption"}
                 color="lightslategrey"
@@ -116,3 +210,16 @@ export default function IndexPage() {
     </>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    name: state.authReducer.name,
+    moodleId: state.authReducer.moodleId,
+  };
+};
+
+const mapDispatchToProps = {
+  getUserDetails,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(IndexPage);

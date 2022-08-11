@@ -1,9 +1,11 @@
 import React, { useRef, useState } from "react";
 import {
+  Alert,
   Box,
   Button,
   Card,
   Checkbox,
+  Snackbar,
   Stack,
   TextField,
   Typography,
@@ -12,27 +14,78 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import SendIcon from "@mui/icons-material/Send";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function NewAccount() {
   //Ref
+  const userNameRef = useRef("");
   const moodleIdRef = useRef("");
+  const emailRef = useRef("");
   const passwordRef = useRef("");
 
   //States
   const [moodleError, setMoodleError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [checkboxState, setCheckboxState] = useState(true);
+  const [open, setOpen] = useState({
+    open: false,
+    message: "",
+  });
+  const [spinner, setSpinner] = useState(false);
+
+  //Initialising instance of Router
+  const router = useRouter();
 
   //Checkbox state handler
   const checkboxStateHandler = (e) => {
     setCheckboxState(e.target.checked);
   };
 
-  const submitHandler = (e) => {
+  const handleClick = () => {
+    setOpen((prevState) => {
+      return {
+        ...prevState,
+        open: true,
+      };
+    });
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen((prevState) => {
+      return {
+        ...prevState,
+        open: false,
+      };
+    });
+  };
+
+  //Making post request to add new user
+  const addUser = async (name, moodleId, email, password) => {
+    return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/add-user`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_name: name,
+        moodleId: moodleId,
+        email: email,
+        password: password,
+      }),
+    });
+  };
+
+  const submitHandler = async (e) => {
     e.preventDefault();
 
     //Take values from inputs
+    const enteredUserName = userNameRef.current.value;
     const enteredMoodleId = moodleIdRef.current.value;
+    const enteredEmail = emailRef.current.value;
     const enteredPassword = passwordRef.current.value;
 
     //Show Error
@@ -42,9 +95,63 @@ export default function NewAccount() {
     !enteredPassword || enteredPassword.length < 8
       ? setPasswordError(true)
       : setPasswordError(false);
+
+    if (!moodleError && !passwordError) {
+      //Making spinner visible
+      setSpinner(true);
+
+      const response = await addUser(
+        enteredUserName,
+        enteredMoodleId,
+        enteredEmail,
+        enteredPassword
+      );
+      if (response.status === 201) {
+        console.log(response.status);
+
+        //Disabling spinner
+        setSpinner(false);
+
+        //Redirecting to signin page
+        await router.push("/signin");
+      } else if (response.status === 302) {
+        console.log(response.status);
+        //Disabling spinner
+        setSpinner(false);
+        //Opening error message
+        setOpen((prevState) => {
+          return {
+            ...prevState,
+            open: true,
+            message: "User already exists! Please signin to continue.",
+          };
+        });
+      } else {
+        //Disabling spinner
+        setSpinner(false);
+        //Opening error message
+        setOpen((prevState) => {
+          return {
+            ...prevState,
+            open: true,
+            message: "An error has been occurred. Please try again",
+          };
+        });
+      }
+    }
   };
   return (
     <>
+      <Snackbar
+        open={open.open}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        autoHideDuration={4000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          {open.message}
+        </Alert>
+      </Snackbar>
       <Header />
       <Box className="newaccount" mt={8}>
         <Typography variant={"h3"} textAlign={"center"} fontWeight={700}>
@@ -64,7 +171,12 @@ export default function NewAccount() {
               height={"inherit"}
               justifyContent={"center"}
             >
-              <TextField id="user_name" label="Your Name" name="name" />
+              <TextField
+                id="user_name"
+                label="Your Name"
+                name="name"
+                inputRef={userNameRef}
+              />
               <TextField
                 id="user_moodleId"
                 label="Your Moodle ID"
@@ -80,6 +192,7 @@ export default function NewAccount() {
                 label="Email"
                 type="email"
                 name="email"
+                inputRef={emailRef}
               />
               <TextField
                 id="user_password"
@@ -106,13 +219,23 @@ export default function NewAccount() {
                 </Typography>
               )}
 
-              <Button
-                variant="contained"
-                endIcon={<SendIcon />}
-                onClick={submitHandler}
-              >
-                Join
-              </Button>
+              {spinner ? (
+                <Box textAlign={"center"}>
+                  <CircularProgress
+                    sx={{
+                      color: "primary.main",
+                    }}
+                  />
+                </Box>
+              ) : (
+                <Button
+                  variant="contained"
+                  endIcon={<SendIcon />}
+                  onClick={submitHandler}
+                >
+                  Join
+                </Button>
+              )}
               <Typography
                 variant={"caption"}
                 color={"lightslategrey"}
