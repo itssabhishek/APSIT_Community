@@ -1,52 +1,122 @@
-import { Box, Button, Grid, Stack, Typography } from "@mui/material";
-import Header from "../components/Header";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Footer from "../components/Footer";
 import Image from "next/image";
 import Link from "next/link";
 import { OpenInNew } from "@mui/icons-material";
 
-export default function Home() {
+export default function LandingPage() {
   return (
     <>
-      <Header isLoggedIn={false} />
-
-      <Grid container height={"80vh"} mx={"auto"}>
-        <Grid item xs={6} alignSelf={"center"}>
-          <Box p={"2rem"}>
-            <Typography variant={"h1"} fontWeight={500}>
-              Hello,
-              <br /> APSITian
+      <Container
+        fixed
+        sx={{
+          padding: {
+            xs: "1rem",
+            md: "2rem",
+            lg: "3rem",
+          },
+          margin: {
+            xs: "0 auto",
+          },
+          height: "calc(100vh - 64px)",
+          display: "flex",
+          flexDirection: {
+            xs: "column",
+            md: "row",
+          },
+          alignItems: "center",
+          justifyContent: {
+            xs: "center",
+            md: "space-between",
+          },
+        }}
+      >
+        <Box
+          sx={{
+            textAlign: {
+              xs: "center",
+              md: "start",
+            },
+          }}
+        >
+          <span>
+            <Typography variant={"h2"}>Hello,</Typography>
+            <br />{" "}
+            <Typography
+              variant="h1"
+              fontWeight="900"
+              component="div"
+              gutterBottom
+            >
+              APSITian
             </Typography>
-            <Typography variant={"subtitle1"} mt={4}>
-              To continue, Please
-            </Typography>
-            <Stack direction={"row"} mt={4} columnGap={3} alignItems={"center"}>
-              <Link href={"/signin"}>
-                <Button variant="contained" endIcon={<OpenInNew />}>
-                  Sign In
-                </Button>
-              </Link>{" "}
-              {"Or"}
-              <Link href={"/newaccount"}>
-                <Button variant="outlined" endIcon={<OpenInNew />}>
-                  Create a new Account
-                </Button>
-              </Link>
-            </Stack>
-          </Box>
-        </Grid>
-        <Grid item xs={6} alignSelf={"center"}>
-          <Box textAlign={"center"}>
-            <Image
-              src={"/Home_Page_GIF.gif"}
-              alt={"Home_Page_GIF"}
-              width={"400"}
-              height={"400"}
-            />
-          </Box>
-        </Grid>
-      </Grid>
+          </span>
+          <Typography variant={"subtitle1"} mt={4}>
+            To continue, Please
+          </Typography>
+          <Stack
+            mt={4}
+            sx={{
+              flexDirection: {
+                xs: "column",
+                md: "row",
+              },
+              rowGap: {
+                xs: 2,
+                md: 0,
+              },
+            }}
+            columnGap={3}
+            alignItems={"center"}
+          >
+            <Link href={"/signin"}>
+              <Button
+                variant="contained"
+                endIcon={<OpenInNew />}
+                sx={{
+                  width: {
+                    xs: "100%",
+                    md: "fit-content",
+                  },
+                }}
+              >
+                Sign In
+              </Button>
+            </Link>{" "}
+            {"Or"}
+            <Link href={"/newaccount"}>
+              <Button
+                variant="outlined"
+                endIcon={<OpenInNew />}
+                sx={{
+                  width: {
+                    xs: "100%",
+                    md: "fit-content",
+                  },
+                }}
+              >
+                Create a new Account
+              </Button>
+            </Link>
+          </Stack>
+        </Box>
 
+        <Box
+          sx={{
+            display: {
+              xs: "none",
+              md: "initial",
+            },
+          }}
+        >
+          <Image
+            src={"/community-3d.png"}
+            alt={"Home_Page_Community"}
+            width={"500"}
+            height={"500"}
+          />
+        </Box>
+      </Container>
       <Footer />
     </>
   );
