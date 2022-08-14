@@ -1,16 +1,24 @@
 import "../styles/globals.css";
-import { createTheme, ThemeProvider } from "@mui/material";
+import {
+  createTheme,
+  CssBaseline,
+  responsiveFontSizes,
+  ThemeProvider,
+} from "@mui/material";
 import { wrapper } from "../../redux/store";
 
-const theme = createTheme({
+let theme = createTheme({
   typography: {
     fontFamily: ['"Poppins"', "Roboto", "Arial", "sans-serif"].join(","),
   },
 });
 
+theme = responsiveFontSizes(theme);
+
 function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Component {...pageProps} />
     </ThemeProvider>
   );

@@ -14,7 +14,6 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
-import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { connect } from "react-redux";
 import { getUserDetails } from "../../../redux/actions/authActions";
@@ -29,10 +28,10 @@ function IndexPage(props) {
   const passwordRef = useRef("");
 
   //States
+  const [spinner, setSpinner] = useState(false);
   const [moodleError, setMoodleError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [open, setOpen] = useState(false);
-  const [spinner, setSpinner] = useState(false);
 
   //Initialising instance of Router
   const router = useRouter();
@@ -47,6 +46,7 @@ function IndexPage(props) {
     }
     setOpen(false);
   };
+
   //Making post request to check if user exist or not
   const getUser = async (moodleId, password) => {
     return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/find-user`, {
@@ -60,6 +60,8 @@ function IndexPage(props) {
       }),
     });
   };
+
+  //Submit handler
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -68,14 +70,19 @@ function IndexPage(props) {
     const enteredPassword = passwordRef.current.value;
 
     //Show Error
-    !enteredMoodleId || isNaN(enteredMoodleId) || enteredMoodleId.length !== 8
+    isNaN(enteredMoodleId) || enteredMoodleId.length !== 8
       ? setMoodleError(true)
       : setMoodleError(false);
-    !enteredPassword || enteredPassword.length < 8
+    enteredPassword.length < 8
       ? setPasswordError(true)
       : setPasswordError(false);
 
-    if (!moodleError && !passwordError) {
+    if (
+      !moodleError &&
+      !passwordError &&
+      enteredMoodleId.length === 8 &&
+      enteredPassword.length >= 8
+    ) {
       //Making spinner visible
       setSpinner(true);
 
@@ -106,7 +113,6 @@ function IndexPage(props) {
 
   return (
     <>
-      <Header />
       <Head>
         <title>Signin to APSIT Community</title>
         <meta name={"description"} content={"Signin to APSIT Community"} />
@@ -121,16 +127,16 @@ function IndexPage(props) {
           Wrong credentials! Try again.
         </Alert>
       </Snackbar>
-      <Box>
-        <Typography mt={"5rem"} variant={"h3"} textAlign={"center"}>
+      <Box pt={4}>
+        <Typography variant={"h3"} fontWeight={500} textAlign={"center"}>
           Welcome back, we missed you!
         </Typography>
         <form id="signIn_form">
           <Card
             sx={{
               margin: "2rem auto",
-              padding: "2rem 2rem",
-              width: "max-content",
+              padding: "2rem",
+              width: "fit-content",
             }}
           >
             <Typography mb={2} align={"center"} variant={"h5"} fontWeight={500}>

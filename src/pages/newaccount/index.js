@@ -89,14 +89,20 @@ export default function NewAccount() {
     const enteredPassword = passwordRef.current.value;
 
     //Show Error
-    !enteredMoodleId || isNaN(enteredMoodleId) || enteredMoodleId.length !== 8
+    isNaN(enteredMoodleId) || enteredMoodleId.length !== 8
       ? setMoodleError(true)
       : setMoodleError(false);
-    !enteredPassword || enteredPassword.length < 8
+    enteredPassword.length < 8
       ? setPasswordError(true)
       : setPasswordError(false);
 
-    if (!moodleError && !passwordError) {
+    if (
+      !moodleError &&
+      !passwordError &&
+      enteredMoodleId.length === 8 &&
+      enteredPassword.length >= 8 &&
+      checkboxState
+    ) {
       //Making spinner visible
       setSpinner(true);
 
@@ -152,9 +158,8 @@ export default function NewAccount() {
           {open.message}
         </Alert>
       </Snackbar>
-      <Header />
-      <Box className="newaccount" mt={8}>
-        <Typography variant={"h3"} textAlign={"center"} fontWeight={700}>
+      <Box className="newaccount" pt={4}>
+        <Typography variant={"h3"} textAlign={"center"} fontWeight={500}>
           We are very excited to have you!
         </Typography>
         <form id="newAccount_form">
