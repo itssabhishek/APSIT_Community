@@ -16,6 +16,9 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Link from "next/link";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { connect } from "react-redux";
+import { toggleDrawerState } from "../../redux/actions/drawerActions";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -57,7 +60,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Header() {
+function Header(props) {
+  const { drawerState, toggleDrawerState } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -155,19 +159,29 @@ export default function Header() {
     </Menu>
   );
 
+  const mdBreakpoint = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
+  const toggleHandler = () =>
+    toggleDrawerState({
+      drawerState: !drawerState,
+    });
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
+          {mdBreakpoint && (
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 2 }}
+              onClick={toggleHandler}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
+
           <Typography
             variant="h6"
             noWrap
@@ -236,3 +250,15 @@ export default function Header() {
     </Box>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    drawerState: state.drawerReducer.drawerState,
+  };
+};
+
+const mapDispatchToProps = {
+  toggleDrawerState,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

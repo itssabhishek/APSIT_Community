@@ -3,9 +3,7 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import DraftsIcon from "@mui/icons-material/Drafts";
 import {
-  Add,
   AddCircle,
   DarkMode,
   EmojiEvents,
@@ -22,10 +20,10 @@ function LeftSideBar() {
     <List
       sx={{
         width: "100%",
-        height: "inherit",
-        maxWidth: "100%",
+        height: "max-content",
         bgcolor: "common.white",
         color: "common.black",
+        overflow: "hidden",
       }}
       component="nav"
     >
