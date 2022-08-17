@@ -1,4 +1,4 @@
-import { DRAWER_OPEN, DRAWER_CLOSE } from "../constants/drawerState";
+import { DRAWER_OPEN } from "../constants/drawerState";
 
 export const toggleDrawerState =
   ({ drawerState }) =>

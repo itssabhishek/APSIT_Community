@@ -1,4 +1,4 @@
-import { DRAWER_OPEN, DRAWER_CLOSE } from "../constants/drawerState";
+import { DRAWER_OPEN } from "../constants/drawerState";
 
 export const drawerReducer = (
   state = {
@@ -11,11 +11,6 @@ export const drawerReducer = (
       return {
         ...state,
         drawerState: action.payload.drawerState,
-      };
-    case DRAWER_CLOSE:
-      return {
-        ...state,
-        drawerState: false,
       };
 
     default:
