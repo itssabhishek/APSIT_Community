@@ -1,7 +1,7 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import LeftSideBar from "./LeftSideBar";
-import { Grid, Slide, Stack } from "@mui/material";
+import { Collapse, Grid, Slide, Stack } from "@mui/material";
 import Post from "./Post";
 import RightSideBar from "./RightSideBar";
 import useMediaQuery from "@mui/material/useMediaQuery";
