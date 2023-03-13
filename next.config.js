@@ -12,7 +12,7 @@ const nextConfig = {
   swcMinify: false,
   trailingSlash: true,
   env: {
-    HOST_API_KEY: 'https://apsit-community.onrender.com/',
+    HOST_API_KEY: 'https://apsit-community-15wd.onrender.com',
   },
 };
 
