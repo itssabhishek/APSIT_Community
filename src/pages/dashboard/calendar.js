@@ -212,7 +212,6 @@ export default function Calendar() {
 
         <DialogAnimate open={isOpenModal} onClose={handleCloseModal}>
           <DialogTitle>{selectedEvent ? 'Edit Event' : 'Add Event'}</DialogTitle>
-
           <CalendarForm event={selectedEvent || {}} range={selectedRange} onCancel={handleCloseModal} />
         </DialogAnimate>
       </Container>

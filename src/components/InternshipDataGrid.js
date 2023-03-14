@@ -2,6 +2,8 @@ import * as React from 'react';
 // @mui
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import BlogNewPostForm from '../sections/@dashboard/blog/BlogNewPostForm';
 
 const ExternalIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -11,36 +13,41 @@ const ExternalIcon = () => (
     />
   </svg>
 );
-export default function InternshipDataGrid() {
+
+InternshipDataGrid.propTypes = {
+  data: PropTypes.array,
+};
+
+export default function InternshipDataGrid({ data }) {
   // Table rows
-  const rows = [
+  const rows = data || [
     {
       id: 1,
       domain: 'Computer Science',
       title: 'IOS App development',
       company: 'Level Fittech private Limited',
-      link: 'https://minimals.cc/components/mui/data-grid',
+      link: 'www.google.com',
     },
     {
       id: 2,
       domain: 'Computer Science',
       title: 'IOS App development',
       company: 'Level Fittech private Limited',
-      link: 'https://minimals.cc/components/mui/data-grid',
+      link: 'www.google.com',
     },
     {
       id: 3,
       domain: 'Computer Science',
       title: 'IOS App development',
       company: 'Level Fittech private Limited',
-      link: 'https://minimals.cc/components/mui/data-grid',
+      link: 'www.google.com',
     },
     {
       id: 4,
       domain: 'Computer Science',
       title: 'IOS App development',
       company: 'Level Fittech private Limited',
-      link: 'https://minimals.cc/components/mui/data-grid',
+      link: 'www.google.com',
     },
   ];
   // Table columns

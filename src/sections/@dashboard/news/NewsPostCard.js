@@ -34,29 +34,13 @@ NewsPostCard.propTypes = {
 };
 
 export default function NewsPostCard({ post, index }) {
-  const isDesktop = useResponsive('up', 'md');
-
   const { cover, title, view, comment, share, author, createdAt } = post;
-
-  const latestPost = index === 0 || index === 1 || index === 2;
-
-  if (isDesktop && latestPost) {
-    return (
-      <Card>
-        <PostContent title={title} view={view} comment={comment} share={share} createdAt={createdAt} index={index} />
-        <OverlayStyle />
-        <Image alt="cover" src={cover} sx={{ height: 360 }} />
-      </Card>
-    );
-  }
 
   return (
     <Card>
-      <Box sx={{ position: 'relative' }}>
-        <Image alt="cover" src={cover} ratio="4/3" />
-      </Box>
-
-      <PostContent title={title} view={view} comment={comment} share={share} createdAt={createdAt} />
+      <PostContent title={title} view={view} comment={comment} share={share} createdAt={createdAt} index={index} />
+      <OverlayStyle />
+      <Image alt="cover" src={cover} sx={{ height: 360 }} />
     </Card>
   );
 }
@@ -73,12 +57,7 @@ PostContent.propTypes = {
 };
 
 export function PostContent({ title, view, comment, share, createdAt, index }) {
-  const isDesktop = useResponsive('up', 'md');
-
   const linkTo = `${PATH_DASHBOARD.news.root}/post/${paramCase(title)}`;
-
-  const latestPostLarge = index === 0;
-  const latestPostSmall = index === 1 || index === 2;
 
   const POST_INFO = [
     { number: comment, icon: 'eva:message-circle-fill' },
@@ -89,15 +68,12 @@ export function PostContent({ title, view, comment, share, createdAt, index }) {
   return (
     <CardContent
       sx={{
-        pt: 4.5,
         width: 1,
-        ...((latestPostLarge || latestPostSmall) && {
-          pt: 0,
-          zIndex: 9,
-          bottom: 0,
-          position: 'absolute',
-          color: 'common.white',
-        }),
+        pt: 0,
+        zIndex: 9,
+        bottom: 0,
+        position: 'absolute',
+        color: 'common.white',
       }}
     >
       <Typography
@@ -105,11 +81,8 @@ export function PostContent({ title, view, comment, share, createdAt, index }) {
         variant="caption"
         component="div"
         sx={{
-          color: 'text.disabled',
-          ...((latestPostLarge || latestPostSmall) && {
-            opacity: 0.64,
-            color: 'common.white',
-          }),
+          opacity: 0.64,
+          color: 'common.white',
         }}
       >
         {fDate(createdAt)}
@@ -117,7 +90,7 @@ export function PostContent({ title, view, comment, share, createdAt, index }) {
 
       <NextLink href={linkTo} passHref>
         <Link color="inherit">
-          <TextMaxLine variant={isDesktop && latestPostLarge ? 'h5' : 'subtitle2'} line={2} persistent>
+          <TextMaxLine variant={'subtitle2'} line={2} persistent>
             {title}
           </TextMaxLine>
         </Link>

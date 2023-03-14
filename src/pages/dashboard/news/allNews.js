@@ -43,6 +43,26 @@ export default function NewsPosts() {
 
   const posts = [
     {
+      id: 'dfsafdsaasdhgjkjhgs',
+      cover: '/news/Industrial_Visit.jpg',
+      title: 'Industrial Visit🏭',
+      view: 0,
+      comment: 0,
+      share: 0,
+      author: 'Sana Sheikh',
+      createdAt: new Date().toDateString(),
+    },
+    {
+      id: 'dfghjhgdfggrtsdfjsfiog',
+      cover: '/news/NvidiaCertification.jpeg',
+      title: 'AI-ML Club NVIDIA Certification',
+      view: 0,
+      comment: 0,
+      share: 0,
+      author: 'Sana Sheikh',
+      createdAt: new Date().toDateString(),
+    },
+    {
       id: 'dfsadfdsafdsadsafsdafds',
       cover: '/news/1.jpeg',
       title: 'Welcome, AI-ML club🎉',
