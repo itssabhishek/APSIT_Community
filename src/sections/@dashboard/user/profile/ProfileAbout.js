@@ -29,7 +29,7 @@ export default function ProfileAbout({ profile }) {
       <CardHeader title="About" />
 
       <Stack spacing={2} sx={{ p: 3 }}>
-        <Typography variant="body2">{about || 'Kar kuchh aisa, Duniya banana chahe tere jaisa'}</Typography>
+        <Typography variant="body2">{about || ''}</Typography>
 
         <Stack direction="row">
           <IconStyle icon="ic:twotone-drive-file-rename-outline" />

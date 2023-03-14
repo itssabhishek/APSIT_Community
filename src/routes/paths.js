@@ -32,6 +32,7 @@ export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
   home: path(ROOTS_DASHBOARD, '/home'),
   internship: path(ROOTS_DASHBOARD, '/internship'),
+  clubs: path(ROOTS_DASHBOARD, '/clubs'),
   achievement: path(ROOTS_DASHBOARD, '/achievement'),
   calendar: path(ROOTS_DASHBOARD, '/calendar'),
   user: {

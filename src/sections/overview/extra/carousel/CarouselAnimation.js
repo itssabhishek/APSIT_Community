@@ -89,7 +89,6 @@ function CarouselItem({ item, isActive }) {
         sx={{
           width: '100%',
           textAlign: 'left',
-          color: 'common.white',
         }}
       >
         <m.div variants={varFade().inRight}>
