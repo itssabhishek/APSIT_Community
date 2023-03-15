@@ -1,74 +1,36 @@
 import * as React from 'react';
 // @mui
 import { DataGrid } from '@mui/x-data-grid';
-import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import BlogNewPostForm from '../sections/@dashboard/blog/BlogNewPostForm';
-
-const ExternalIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-    <path
-      fill="currentColor"
-      d="M5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h7v2H5v14h14v-7h2v7q0 .825-.587 1.413Q19.825 21 19 21Zm4.7-5.3l-1.4-1.4L17.6 5H14V3h7v7h-2V6.4Z"
-    />
-  </svg>
-);
+import { Stack } from '@mui/material';
 
 InternshipDataGrid.propTypes = {
-  data: PropTypes.array,
+  rows: PropTypes.array,
+  columns: PropTypes.array,
+  loading: PropTypes.bool,
 };
 
-export default function InternshipDataGrid({ data }) {
-  // Table rows
-  const rows = data || [
-    {
-      id: 1,
-      domain: 'Computer Science',
-      title: 'IOS App development',
-      company: 'Level Fittech private Limited',
-      link: 'www.google.com',
-    },
-    {
-      id: 2,
-      domain: 'Computer Science',
-      title: 'IOS App development',
-      company: 'Level Fittech private Limited',
-      link: 'www.google.com',
-    },
-    {
-      id: 3,
-      domain: 'Computer Science',
-      title: 'IOS App development',
-      company: 'Level Fittech private Limited',
-      link: 'www.google.com',
-    },
-    {
-      id: 4,
-      domain: 'Computer Science',
-      title: 'IOS App development',
-      company: 'Level Fittech private Limited',
-      link: 'www.google.com',
-    },
-  ];
-  // Table columns
-  const columns = [
-    { field: 'domain', headerName: 'Domain', width: 200 },
-    { field: 'title', headerName: 'Title', width: 200 },
-    { field: 'company', headerName: 'Company Name', width: 200 },
-    {
-      field: 'link',
-      headerName: 'Link',
-      flex: 1,
-      renderCell: (params) => (
-        <Button href={params.value} target="_blank" variant="contained" endIcon={<ExternalIcon />}>
-          Apply
-        </Button>
-      ),
-    },
-  ];
+export default function InternshipDataGrid({ rows, columns, loading }) {
   return (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGrid columns={columns} rows={rows} />
+      <DataGrid
+        getRowId={(row) => row['_id']['$oid']}
+        loading={loading}
+        columns={columns}
+        rows={rows}
+        components={{
+          NoRowsOverlay: () => (
+            <Stack height="100%" alignItems="center" justifyContent="center">
+              Couldn't get any result. Please try to change domain.
+            </Stack>
+          ),
+          NoResultsOverlay: () => (
+            <Stack height="100%" alignItems="center" justifyContent="center">
+              Local filter returns no result
+            </Stack>
+          ),
+        }}
+      />
     </div>
   );
 }
