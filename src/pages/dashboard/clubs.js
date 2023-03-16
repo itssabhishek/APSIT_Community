@@ -23,7 +23,7 @@ Clubs.getLayout = function getLayout(page) {
 // ----------------------------------------------------------------------
 const clubs = [
   {
-    icon: 'https://minimal-assets-api.vercel.app/assets/icons/faqs/ic_account.svg',
+    icon: '/clubs/nss.jpg',
     club_name: 'National Social Services (NSS)',
     faculty_coordinator_name: 'Prof. Uday A Nikam',
     faculty_coordinator_contact: 9619556081,

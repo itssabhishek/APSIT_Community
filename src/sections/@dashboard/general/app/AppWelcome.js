@@ -33,8 +33,7 @@ export default function AppWelcome({ displayName }) {
     <RootStyle>
       <CardContent
         sx={{
-          p: { md: 0 },
-          pl: { md: 5 },
+          p: { md: 5 },
           color: 'grey.800',
         }}
       >
