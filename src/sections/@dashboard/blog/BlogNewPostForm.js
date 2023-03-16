@@ -54,7 +54,7 @@ export default function BlogNewPostForm({ isEdit, post }) {
   const NewBlogSchema = Yup.object().shape({
     title: Yup.string().required('Title is required'),
     description: Yup.string(),
-    content: Yup.string().min(100).required('Content is required'),
+    content: Yup.string().min(20).required('Content is required'),
     cover: Yup.mixed(),
   });
 

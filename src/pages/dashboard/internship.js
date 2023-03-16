@@ -72,7 +72,7 @@ export default function Internship() {
     {
       field: 'link',
       headerName: 'Link',
-      flex: 1,
+      width: 120,
       renderCell: (params) => (
         <Button href={params.value} target="_blank" variant="contained" endIcon={<ExternalIcon />}>
           Apply

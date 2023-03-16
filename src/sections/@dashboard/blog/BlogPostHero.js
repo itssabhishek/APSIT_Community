@@ -34,6 +34,9 @@ const TitleStyle = styled('h1')(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
     padding: theme.spacing(10),
   },
+  [theme.breakpoints.down('sm')]: {
+    ...theme.typography.h3,
+  },
 }));
 
 const FooterStyle = styled('div')(({ theme }) => ({
@@ -98,7 +101,7 @@ export default function BlogPostHero({ post }) {
       </FooterStyle>
 
       <OverlayStyle />
-      <Image alt="post cover" src={cover?.preview} ratio="16/9" />
+      <Image alt="post cover" src={cover?.preview || '/overlay_2.jpg'} ratio="16/9" />
     </Box>
   );
 }
