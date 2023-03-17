@@ -12,7 +12,7 @@ InternshipDataGrid.propTypes = {
 
 export default function InternshipDataGrid({ rows, columns, loading }) {
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ height: 500, width: '100%' }}>
       <DataGrid
         getRowId={(row) => row['_id']['$oid']}
         loading={loading}
