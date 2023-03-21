@@ -129,7 +129,9 @@ function AuthProvider({ children }) {
     const response = await axios.post('/add-user', newUserDetails);
     const { accessToken, user } = response.data;
 
-    window.localStorage.setItem('accessToken', accessToken);
+    console.log('Access Token', accessToken);
+
+    setSession(accessToken);
     dispatch({
       type: 'REGISTER',
       payload: {
