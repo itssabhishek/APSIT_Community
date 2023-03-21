@@ -15,6 +15,7 @@ import Logo from '../../components/Logo';
 import Image from '../../components/Image';
 // sections
 import { LoginForm } from '../../sections/auth/login';
+import { getContentFromS3 } from '../../utils/aws';
 
 // ----------------------------------------------------------------------
 
@@ -66,6 +67,8 @@ export default function Login() {
 
   const mdUp = useResponsive('up', 'md');
 
+  const signin = getContentFromS3('public/illustration_signin.png');
+
   return (
     <GuestGuard>
       <Page title="Login">
@@ -87,7 +90,7 @@ export default function Login() {
               <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
                 Hi, Welcome Back
               </Typography>
-              <Image src="/illustration_signin.png" alt="login" />
+              <Image src={signin} alt="login" />
             </SectionStyle>
           )}
 

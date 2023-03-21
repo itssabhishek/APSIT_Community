@@ -19,7 +19,7 @@ export default function BlogPostTags({ post }) {
   const { user } = useAuth();
 
   const [isLiked, setLiked] = useState(post.like.includes(user.moodleId));
-  const [isBookmarked, setBookmarked] = useState(user.bookmark.includes(post._id['$oid']));
+  const [isBookmarked, setBookmarked] = useState(user.bookmark?.includes(post._id['$oid']) || false);
 
   const [likes, setLikes] = useState(post.like.length);
 
