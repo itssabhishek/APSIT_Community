@@ -67,7 +67,7 @@ export default function Login() {
 
   const mdUp = useResponsive('up', 'md');
 
-  const signin = getContentFromS3('public/illustration_signin.png');
+  const signin = getContentFromS3('/illustration_signin.png');
 
   return (
     <GuestGuard>

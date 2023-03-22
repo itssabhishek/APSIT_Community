@@ -13,6 +13,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Image from '../../components/Image';
 import { MotionViewport } from '../../components/animate';
+import { getContentFromS3 } from '../../utils/aws';
 
 // ----------------------------------------------------------------------
 
@@ -21,6 +22,7 @@ Clubs.getLayout = function getLayout(page) {
 };
 
 // ----------------------------------------------------------------------
+
 const clubs = [
   {
     icon: '/clubs/nss.jpg',
@@ -258,7 +260,13 @@ function ClubCard({ club }) {
         },
       }}
     >
-      <Image alt={icon} visibleByDefault disabledEffect src={icon} sx={{ mb: 2, width: 80, height: 80 }} />
+      <Image
+        alt={icon}
+        visibleByDefault
+        disabledEffect
+        src={getContentFromS3(icon)}
+        sx={{ mb: 2, width: 80, height: 80 }}
+      />
       <Typography variant="subtitle2">{club_name}</Typography>
       <Typography variant="body1">{faculty_coordinator_name}</Typography>
       <Typography variant="body2">{faculty_coordinator_contact}</Typography>
