@@ -12,7 +12,7 @@ const s3 = new AWS.S3({ apiVersion: '2006-03-01' });
 export function getContentFromS3(objectKey) {
   const params = {
     Bucket: 'apsit-community-static',
-    Key: objectKey,
+    Key: `public${objectKey}`,
   };
 
   try {

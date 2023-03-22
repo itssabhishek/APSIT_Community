@@ -14,6 +14,7 @@ import { fDate } from '../../../utils/formatTime';
 // components
 import Image from '../../../components/Image';
 import TextMaxLine from '../../../components/TextMaxLine';
+import { getContentFromS3 } from '../../../utils/aws';
 
 // ----------------------------------------------------------------------
 
@@ -40,7 +41,7 @@ export default function NewsPostCard({ post, index }) {
     <Card>
       <PostContent title={title} view={view} comment={comment} share={share} createdAt={createdAt} index={index} />
       <OverlayStyle />
-      <Image alt="cover" src={cover} sx={{ height: 360 }} />
+      <Image alt="cover" src={getContentFromS3(cover)} sx={{ height: 360 }} />
     </Card>
   );
 }

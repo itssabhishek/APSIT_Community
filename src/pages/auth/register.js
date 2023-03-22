@@ -15,6 +15,7 @@ import Logo from '../../components/Logo';
 import Image from '../../components/Image';
 // sections
 import { RegisterForm } from '../../sections/auth/register';
+import { getContentFromS3 } from '../../utils/aws';
 
 // ----------------------------------------------------------------------
 
@@ -64,7 +65,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 export default function Register() {
   const smUp = useResponsive('up', 'sm');
   const mdUp = useResponsive('up', 'md');
-
+  const signin = getContentFromS3('/illustration_signin.png');
   return (
     <GuestGuard>
       <Page title="Register">
@@ -86,7 +87,7 @@ export default function Register() {
               <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
                 We are very excited to have you
               </Typography>
-              <Image alt="register" src="/illustration_signin.png" />
+              <Image alt="register" src={signin} />
             </SectionStyle>
           )}
 

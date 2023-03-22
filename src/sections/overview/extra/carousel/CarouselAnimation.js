@@ -11,6 +11,7 @@ import { _carouselsExample } from '../../../../_mock';
 import Image from '../../../../components/Image';
 import { MotionContainer, varFade } from '../../../../components/animate';
 import { CarouselArrowIndex } from '../../../../components/carousel';
+import { getContentFromS3 } from '../../../../utils/aws';
 
 // ----------------------------------------------------------------------
 
@@ -73,7 +74,7 @@ function CarouselItem({ item, isActive }) {
   const isLarge = useMediaQuery(theme.breakpoints.up('sm'));
   return (
     <Paper sx={{ position: 'relative' }}>
-      <Image alt={title} src={image} ratio="16/9" />
+      <Image alt={title} src={getContentFromS3(image)} ratio="16/9" />
       <Box
         sx={{
           top: 0,

@@ -71,8 +71,8 @@ const HeroImgStyle = styled(m.img)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function HomeHero() {
-  const communityImage = getContentFromS3('public/community-3d.png');
-  const overlay1 = getContentFromS3('public/overlay_1.svg');
+  const communityImage = getContentFromS3('/community-3d.png');
+  const overlay1 = getContentFromS3('/overlay_1.svg');
 
   const largeScreen = useMediaQuery((theme) => theme.breakpoints.up('sm'));
   return (
