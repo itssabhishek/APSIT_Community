@@ -79,9 +79,7 @@ export default function HomeHero() {
     <MotionContainer>
       <RootStyle>
         <HeroOverlayStyle alt="overlay" src={overlay1} variants={varFade().in} />
-
         <HeroImgStyle alt="hero" src={communityImage} variants={varFade().inUp} />
-
         <Container>
           <ContentStyle>
             <m.div variants={varFade().inRight}>
