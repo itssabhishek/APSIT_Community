@@ -1,5 +1,5 @@
 // @mui
-import { Box, Container, Grid, Paper, Typography } from '@mui/material';
+import { Box, Container, Grid, Modal, Paper, Typography } from '@mui/material';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // layouts
@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import Image from '../../components/Image';
 import { MotionViewport } from '../../components/animate';
 import { getContentFromS3 } from '../../utils/aws';
+import MainFooter from '../../layouts/main/MainFooter';
 
 // ----------------------------------------------------------------------
 
@@ -234,6 +235,9 @@ ClubCard.propTypes = {
 };
 
 function ClubCard({ club }) {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const {
     icon,
     club_name,
@@ -243,38 +247,67 @@ function ClubCard({ club }) {
     student_coordinator_contact,
   } = club;
 
+  const image = getContentFromS3(icon);
+
   return (
-    <Paper
-      variant="outlined"
-      sx={{
-        px: 2,
-        height: 260,
-        borderRadius: 2,
-        display: 'flex',
-        textAlign: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        '&:hover': {
-          boxShadow: (theme) => theme.customShadows.z24,
-        },
-      }}
-    >
-      <Image
-        alt={icon}
-        visibleByDefault
-        disabledEffect
-        src={getContentFromS3(icon)}
-        sx={{ mb: 2, width: 80, height: 80 }}
-      />
-      <Typography variant="subtitle2">{club_name}</Typography>
-      <Typography variant="body1">{faculty_coordinator_name}</Typography>
-      <Typography variant="body2">{faculty_coordinator_contact}</Typography>
-      <Typography variant="body1">{student_coordinator_name}</Typography>
-      <Typography variant="body2">{student_coordinator_contact}</Typography>
-    </Paper>
+    <>
+      <Paper
+        variant="outlined"
+        sx={{
+          px: 2,
+          height: 260,
+          borderRadius: 2,
+          display: 'flex',
+          textAlign: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          background: (theme) => theme.palette.background.neutral,
+          '&:hover': {
+            boxShadow: (theme) => theme.customShadows.z24,
+          },
+        }}
+        onClick={handleOpen}
+      >
+        <Image alt={icon} visibleByDefault disabledEffect src={image} sx={{ mb: 2, width: 80, height: 80 }} />
+        <Typography variant="subtitle2">{club_name}</Typography>
+      </Paper>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Paper
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            px: 2,
+            height: 360,
+            width: 360,
+            borderRadius: 2,
+            display: 'flex',
+            textAlign: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
+        >
+          <Image alt={icon} visibleByDefault disabledEffect src={image} sx={{ mb: 2, width: 150, height: 150 }} />
+          <Typography variant="subtitle1">{club_name}</Typography>
+          <Typography variant="body1">{faculty_coordinator_name}</Typography>
+          <Typography variant="body2">{faculty_coordinator_contact}</Typography>
+          <Typography variant="body1">{student_coordinator_name}</Typography>
+          <Typography variant="body2">{student_coordinator_contact}</Typography>
+        </Paper>
+      </Modal>
+    </>
   );
 }
+
+// ----------------------------------------------------------------------
 
 export default function Clubs() {
   const { themeStretch } = useSettings();
@@ -308,6 +341,7 @@ export default function Clubs() {
             </Box>
           </Grid>
         </Grid>
+        <MainFooter />
       </Container>
     </Page>
   );

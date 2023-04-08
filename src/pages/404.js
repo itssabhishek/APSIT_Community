@@ -11,6 +11,7 @@ import Page from '../components/Page';
 import { MotionContainer, varBounce } from '../components/animate';
 // assets
 import { PageNotFoundIllustration } from '../assets';
+import MainFooter from '../layouts/main/MainFooter';
 
 // ----------------------------------------------------------------------
 
@@ -54,6 +55,7 @@ export default function Page404() {
               </Button>
             </NextLink>
           </Box>
+          <MainFooter />
         </Container>
       </RootStyle>
     </Page>

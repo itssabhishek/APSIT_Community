@@ -4,7 +4,7 @@ import NextLink from 'next/link';
 import { styled } from '@mui/material/styles';
 import { Grid, Link, Divider, Container, Typography, Stack } from '@mui/material';
 // routes
-import { PATH_PAGE } from '../../routes/paths';
+import { PATH_DASHBOARD } from '../../routes/paths';
 // components
 import Logo from '../../components/Logo';
 import SocialsButton from '../../components/SocialsButton';
@@ -15,9 +15,8 @@ const LINKS = [
   {
     headline: 'APSIT Community',
     children: [
-      { name: 'About us', href: PATH_PAGE.about },
-      // { name: 'Contact us', href: PATH_PAGE.faqs },
-      { name: 'Contact us', href: PATH_PAGE.faqs },
+      { name: 'About us', href: PATH_DASHBOARD.about },
+      { name: 'Help', href: PATH_DASHBOARD.help },
     ],
   },
   {
@@ -45,9 +44,9 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 export default function MainFooter() {
   return (
-    <RootStyle>
+    <RootStyle sx={{ mt: 10 }}>
       <Divider />
-      <Container sx={{ pt: 10 }}>
+      <Container sx={{ pt: 5 }}>
         <Grid
           container
           justifyContent={{ xs: 'center', md: 'space-between' }}

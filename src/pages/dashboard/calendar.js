@@ -25,6 +25,7 @@ import { DialogAnimate } from '../../components/animate';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
 import { CalendarForm, CalendarStyle, CalendarToolbar } from '../../sections/@dashboard/calendar';
+import MainFooter from '../../layouts/main/MainFooter';
 
 // ----------------------------------------------------------------------
 
@@ -214,6 +215,7 @@ export default function Calendar() {
           <DialogTitle>{selectedEvent ? 'Edit Event' : 'Add Event'}</DialogTitle>
           <CalendarForm event={selectedEvent || {}} range={selectedRange} onCancel={handleCloseModal} />
         </DialogAnimate>
+        <MainFooter />
       </Container>
     </Page>
   );

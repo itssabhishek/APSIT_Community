@@ -9,6 +9,7 @@ import Layout from '../layouts';
 // components
 import Page from '../components/Page';
 import { MotionContainer, varBounce } from '../components/animate';
+import MainFooter from '../layouts/main/MainFooter';
 // assets
 
 // ----------------------------------------------------------------------
@@ -52,6 +53,7 @@ export default function Page401() {
               </Button>
             </NextLink>
           </Box>
+          <MainFooter />
         </Container>
       </RootStyle>
     </Page>

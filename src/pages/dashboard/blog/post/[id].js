@@ -3,7 +3,7 @@ import { sentenceCase } from 'change-case';
 // next
 import { useRouter } from 'next/router';
 // @mui
-import { Box, Card, Container, Divider, Typography } from '@mui/material';
+import { Box, Button, Card, Container, Divider, Typography } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // hooks
@@ -25,6 +25,11 @@ import {
   BlogPostHero,
   BlogPostTags,
 } from '../../../../sections/@dashboard/blog';
+import { useSnackbar } from 'notistack';
+import { m } from 'framer-motion';
+import { varBounce } from '../../../../components/animate';
+import { PageNotFoundIllustration } from '../../../../assets';
+import NextLink from 'next/link';
 
 // ----------------------------------------------------------------------
 
@@ -36,17 +41,14 @@ BlogPost.getLayout = function getLayout(page) {
 
 export default function BlogPost() {
   const { themeStretch } = useSettings();
-
+  const { enqueueSnackbar } = useSnackbar();
   const isMountedRef = useIsMountedRef();
-
   const { query } = useRouter();
-
   const { id } = query;
-
   const [post, setPost] = useState(null);
-
   const [error, setError] = useState(null);
   const [comments, setComments] = useState([]);
+
   const getPost = useCallback(async () => {
     try {
       const response = await axios.get('/post', {
@@ -63,20 +65,6 @@ export default function BlogPost() {
     }
   }, [isMountedRef, id]);
 
-  // const getRecentPosts = useCallback(async () => {
-  //   try {
-  //     const response = await axios.get('/api/blog/posts/recent', {
-  //       params: { id },
-  //     });
-  //
-  //     if (isMountedRef.current) {
-  //       setRecentPosts(response.data.recentPosts);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }, [isMountedRef, id]);
-
   useEffect(() => {
     getPost();
     // getRecentPosts();
@@ -91,6 +79,7 @@ export default function BlogPost() {
     } catch (error) {
       console.error(error);
       setError(error.message);
+      enqueueSnackbar(`${error.message}.`, { variant: 'error' });
     }
   };
 
@@ -102,7 +91,7 @@ export default function BlogPost() {
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             { name: 'Blog', href: PATH_DASHBOARD.root },
-            { name: sentenceCase(post?.title || 'Fetching') },
+            { name: sentenceCase(post?.title || `${error ? 'Not Found' : 'Fetching'}`) },
           ]}
         />
 
@@ -135,10 +124,27 @@ export default function BlogPost() {
             </Box>
           </Card>
         )}
-
         {!post && !error && <SkeletonPost />}
-
-        {error && <Typography variant="h6">404 {error}!</Typography>}
+        {!post && error && (
+          <Box sx={{ maxWidth: 480, margin: 'auto', textAlign: 'center' }}>
+            <m.div variants={varBounce().in}>
+              <Typography variant="h3" paragraph>
+                Sorry, post not found!
+              </Typography>
+            </m.div>
+            <Typography sx={{ color: 'text.secondary' }}>
+              Sorry, we couldn’t find the post you’re looking for. It might be deleted.
+            </Typography>
+            <m.div variants={varBounce().in}>
+              <PageNotFoundIllustration sx={{ height: 260, my: { xs: 5, sm: 10 } }} />
+            </m.div>
+            <NextLink href={`${PATH_DASHBOARD.root}`}>
+              <Button size="large" variant="contained">
+                Go to Home
+              </Button>
+            </NextLink>
+          </Box>
+        )}
       </Container>
     </Page>
   );

@@ -87,7 +87,7 @@ export default function AboutTeam() {
   ];
 
   return (
-    <Container component={MotionViewport} sx={{ pb: 10, textAlign: 'center' }}>
+    <Container component={MotionViewport} sx={{ textAlign: 'center' }}>
       <m.div variants={varFade().inDown}>
         <Typography component="p" variant="overline" sx={{ mb: 2, color: 'text.secondary' }}>
           Dream team

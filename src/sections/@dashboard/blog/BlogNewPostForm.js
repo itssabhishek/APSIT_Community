@@ -124,7 +124,12 @@ export default function BlogNewPostForm({ isEdit, post }) {
           );
         }
       };
-      reader.readAsDataURL(file);
+
+      try {
+        reader.readAsDataURL(file);
+      } catch (e) {
+        console.log(e.message, 'Size exceeded');
+      }
     },
     [setValue]
   );

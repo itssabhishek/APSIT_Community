@@ -14,6 +14,7 @@ import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import axios from '../../utils/axios';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
+import MainFooter from '../../layouts/main/MainFooter';
 
 // ----------------------------------------------------------------------
 
@@ -105,6 +106,7 @@ export default function Internship() {
             <InternshipDataGrid loading={loading} columns={columns} rows={rows} />
           </Grid>
         </Grid>
+        <MainFooter />
       </Container>
     </Page>
   );
