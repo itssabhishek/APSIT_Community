@@ -1,12 +1,12 @@
 // @mui
 import { styled } from '@mui/material/styles';
-import { Container, Grid, Typography } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 // layouts
-import Layout from '../layouts';
+import Layout from '../../layouts';
 // components
-import Page from '../components/Page';
+import Page from '../../components/Page';
 // sections
-import { FaqsCategory, FaqsForm, FaqsHero } from '../sections/faqs';
+import { ContactForm, ContactHero } from '../../sections/contact';
 
 // ----------------------------------------------------------------------
 
@@ -19,32 +19,21 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-Faqs.getLayout = function getLayout(page) {
-  return <Layout variant="main">{page}</Layout>;
+Contact.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>;
 };
 
 // ----------------------------------------------------------------------
 
-export default function Faqs() {
+export default function Contact() {
   return (
-    <Page title="Help">
+    <Page title="Contact us">
       <RootStyle>
-        <FaqsHero />
-
-        <Container sx={{ mt: 15, mb: 10 }}>
-          <Typography variant="h3" sx={{ mb: 5 }}>
-            Contact details
-          </Typography>
-
-          <FaqsCategory />
-
-          <Typography variant="h3" sx={{ mb: 5 }}>
-            Found any bug?
-          </Typography>
-
+        <ContactHero />
+        <Container sx={{ my: 10 }}>
           <Grid container spacing={10}>
             <Grid item xs={12} md={6}>
-              <FaqsForm />
+              <ContactForm />
             </Grid>
           </Grid>
         </Container>

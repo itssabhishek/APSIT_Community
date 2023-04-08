@@ -35,6 +35,9 @@ export const PATH_DASHBOARD = {
   clubs: path(ROOTS_DASHBOARD, '/clubs'),
   achievement: path(ROOTS_DASHBOARD, '/achievement'),
   calendar: path(ROOTS_DASHBOARD, '/calendar'),
+  about: path(ROOTS_DASHBOARD, '/about-us'),
+  contact: path(ROOTS_DASHBOARD, '/contact-us'),
+  help: path(ROOTS_DASHBOARD, '/help'),
   user: {
     root: path(ROOTS_DASHBOARD, '/user'),
     profile: path(ROOTS_DASHBOARD, '/user/profile'),
@@ -56,7 +59,7 @@ export const PATH_DASHBOARD = {
   },
   news: {
     root: path(ROOTS_DASHBOARD, '/news'),
-    allNews: path(ROOTS_DASHBOARD, '/news/allNews'),
+    allNews: path(ROOTS_DASHBOARD, '/news/all'),
     postById: path(ROOTS_DASHBOARD, '/news/post/:title'),
     newPost: path(ROOTS_DASHBOARD, '/news/new-post'),
     trendingPosts: path(ROOTS_DASHBOARD, '/news/post/trending-posts'),

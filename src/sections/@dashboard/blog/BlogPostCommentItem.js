@@ -2,18 +2,20 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 // @mui
 import {
-  Box,
-  Button,
   Avatar,
+  Button,
   Divider,
+  IconButton,
   ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Stack,
   TextField,
   Typography,
-  ListItemText,
-  ListItemAvatar,
 } from '@mui/material';
 // utils
 import { fDate } from '../../../utils/formatTime';
+import Iconify from '../../../components/Iconify';
 
 // ----------------------------------------------------------------------
 
@@ -28,9 +30,14 @@ BlogPostCommentItem.propTypes = {
 
 export default function BlogPostCommentItem({ name, avatarUrl, message, tagUser, postedAt, hasReply }) {
   const [openReply, setOpenReply] = useState(false);
+  const [reply, setReply] = useState('');
 
   const handleOpenReply = () => {
-    setOpenReply(true);
+    setOpenReply((prevState) => !prevState);
+  };
+
+  const handleChangeMessage = (reply) => {
+    setReply(reply);
   };
 
   return (
@@ -80,7 +87,8 @@ export default function BlogPostCommentItem({ name, avatarUrl, message, tagUser,
       </ListItem>
 
       {!hasReply && openReply && (
-        <Box
+        <Stack
+          direction="row"
           sx={{
             mb: 3,
             ml: 'auto',
@@ -90,14 +98,19 @@ export default function BlogPostCommentItem({ name, avatarUrl, message, tagUser,
           <TextField
             fullWidth
             size="small"
-            placeholder="Write comment"
+            value={reply}
+            placeholder="Write a comment…"
+            onChange={(event) => handleChangeMessage(event.target.value)}
             InputProps={{
               sx: {
                 border: (theme) => `solid 1px ${theme.palette.grey[500_32]} !important`,
               },
             }}
           />
-        </Box>
+          <IconButton>
+            <Iconify icon={'ic:round-send'} width={24} height={24} />
+          </IconButton>
+        </Stack>
       )}
 
       <Divider

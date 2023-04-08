@@ -14,7 +14,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   backgroundImage: `url(${getContentFromS3('/overlay_1.svg')})`,
   padding: theme.spacing(10, 0),
   [theme.breakpoints.up('md')]: {
-    height: 560,
+    height: 400,
     padding: 0,
   },
 }));

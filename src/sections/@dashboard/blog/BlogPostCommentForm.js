@@ -4,12 +4,13 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Typography, Stack } from '@mui/material';
+import { Typography, Stack, Link } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
 import { FormProvider, RHFTextField } from '../../../components/hook-form';
 import PropTypes from 'prop-types';
 import useAuth from '../../../hooks/useAuth';
+import NextLink from 'next/link';
 
 // ----------------------------------------------------------------------
 
@@ -58,10 +59,14 @@ export default function BlogPostCommentForm({ onComment }) {
 
   return (
     <RootStyles>
-      <Typography variant="subtitle1" sx={{ mb: 3 }}>
-        Add Comment
+      <Typography variant="subtitle1">Add Comment</Typography>
+      <Typography variant="body2" sx={{ mb: 3, color: (theme) => theme.palette.warning.dark }}>
+        *Your comments will be monitored. Please read our{' '}
+        <NextLink href={'/Terms&Conditions.pdf'} passHref>
+          <Link color="inherit">terms and conditions</Link>
+        </NextLink>
+        .
       </Typography>
-
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={3} alignItems="flex-end">
           <RHFTextField name="message" label="Comment *" multiline rows={3} />

@@ -1,29 +1,23 @@
 import PropTypes from 'prop-types';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 // @mui
 import {
-  Box,
-  Link,
-  Card,
-  Stack,
-  Paper,
-  Avatar,
-  Checkbox,
-  TextField,
-  Typography,
-  CardHeader,
-  IconButton,
-  AvatarGroup,
-  InputAdornment,
-  FormControlLabel,
-  MenuItem,
-  Divider,
   Button,
+  Card,
+  CardHeader,
+  Checkbox,
   Dialog,
-  DialogTitle,
+  DialogActions,
   DialogContent,
   DialogContentText,
-  DialogActions,
+  DialogTitle,
+  Divider,
+  FormControlLabel,
+  IconButton,
+  Link,
+  MenuItem,
+  Stack,
+  Typography,
 } from '@mui/material';
 // hooks
 import useAuth from '../../../../hooks/useAuth';
@@ -35,13 +29,14 @@ import { fShortenNumber } from '../../../../utils/formatNumber';
 import Image from '../../../../components/Image';
 import Iconify from '../../../../components/Iconify';
 import MyAvatar from '../../../../components/MyAvatar';
-import EmojiPicker from '../../../../components/EmojiPicker';
 import MenuPopover from '../../../../components/MenuPopover';
 // util
 import axios from '../../../../utils/axios';
 import { useSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
 import { PATH_DASHBOARD } from '../../../../routes/paths';
+import Markdown from '../../../../components/Markdown';
+import NextLink from 'next/link';
 
 // ----------------------------------------------------------------------
 
@@ -51,17 +46,15 @@ ProfilePostCard.propTypes = {
 
 export default function ProfilePostCard({ post }) {
   const { user } = useAuth();
-  const commentInputRef = useRef(null);
-
-  const fileInputRef = useRef(null);
-
   const [isLiked, setLiked] = useState(post.like.includes(user.moodleId));
-
   const [likes, setLikes] = useState(post.like.length);
+  const { enqueueSnackbar } = useSnackbar();
 
-  const [message, setMessage] = useState('');
-
-  const hasComments = post.comment.length > 0;
+  const copyToClipboardHandler = () => {
+    navigator.clipboard
+      .writeText(`${location.host}${PATH_DASHBOARD.blog.root}/post/${post._id['$oid']}`)
+      .then(() => enqueueSnackbar(`Link copied!`));
+  };
 
   const handleLike = () => {
     setLiked(true);
@@ -95,18 +88,6 @@ export default function ProfilePostCard({ post }) {
       });
   };
 
-  const handleChangeMessage = (value) => {
-    setMessage(value);
-  };
-
-  const handleClickAttach = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleClickComment = () => {
-    commentInputRef.current?.focus();
-  };
-
   return (
     <Card>
       <CardHeader
@@ -126,10 +107,8 @@ export default function ProfilePostCard({ post }) {
       />
 
       <Stack spacing={3} sx={{ p: 3 }}>
-        <Typography>{post.message}</Typography>
-
-        <Image alt="post media" src={post.cover?.preview} ratio="16/9" sx={{ borderRadius: 1 }} />
-
+        <Markdown children={post.content} />
+        {post.cover && <Image alt="post media" src={post.cover?.preview} ratio="16/9" sx={{ borderRadius: 1 }} />}
         <Stack direction="row" alignItems="center">
           <FormControlLabel
             control={
@@ -145,78 +124,9 @@ export default function ProfilePostCard({ post }) {
             label={fShortenNumber(likes)}
             sx={{ minWidth: 72, mr: 0 }}
           />
-          <AvatarGroup max={4} sx={{ '& .MuiAvatar-root': { width: 32, height: 32 } }}>
-            {post.personLikes?.map((person) => (
-              <Avatar key={person.name} alt={person.name} src={person.avatarUrl} />
-            ))}
-          </AvatarGroup>
-          <Box sx={{ flexGrow: 1 }} />
-          <IconButton onClick={handleClickComment}>
-            <Iconify icon={'eva:message-square-fill'} width={20} height={20} />
-          </IconButton>
-          <IconButton>
+          <IconButton onClick={copyToClipboardHandler}>
             <Iconify icon={'eva:share-fill'} width={20} height={20} />
           </IconButton>
-        </Stack>
-
-        {hasComments && (
-          <Stack spacing={1.5}>
-            {post.comment.map((comment) => (
-              <Stack key={Math.random() * 100000} direction="row" spacing={2}>
-                <Avatar alt={comment.name} src={comment.avatarUrl} />
-                <Paper sx={{ p: 1.5, flexGrow: 1, bgcolor: 'background.neutral' }}>
-                  <Stack
-                    direction={{ xs: 'column', sm: 'row' }}
-                    alignItems={{ sm: 'center' }}
-                    justifyContent="space-between"
-                    sx={{ mb: 0.5 }}
-                  >
-                    <Typography variant="subtitle2">{comment.name}</Typography>
-                    <Typography variant="caption" sx={{ color: 'text.disabled' }}>
-                      {fDate(comment.postedAt)}
-                    </Typography>
-                  </Stack>
-                  <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                    {comment.message}
-                  </Typography>
-                </Paper>
-              </Stack>
-            ))}
-          </Stack>
-        )}
-
-        <Stack direction="row" alignItems="center">
-          <MyAvatar />
-          <TextField
-            fullWidth
-            size="small"
-            value={message}
-            inputRef={commentInputRef}
-            placeholder="Write a comment…"
-            onChange={(event) => handleChangeMessage(event.target.value)}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton size="small" onClick={handleClickAttach}>
-                    <Iconify icon={'ic:round-add-photo-alternate'} width={24} height={24} />
-                  </IconButton>
-                  <EmojiPicker alignRight value={message} setValue={setMessage} />
-                </InputAdornment>
-              ),
-            }}
-            sx={{
-              ml: 2,
-              mr: 1,
-              '& fieldset': {
-                borderWidth: `1px !important`,
-                borderColor: (theme) => `${theme.palette.grey[500_32]} !important`,
-              },
-            }}
-          />
-          <IconButton>
-            <Iconify icon={'ic:round-send'} width={24} height={24} />
-          </IconButton>
-          <input type="file" ref={fileInputRef} style={{ display: 'none' }} />
         </Stack>
       </Stack>
     </Card>
@@ -232,7 +142,8 @@ function MoreMenuButton({ postId }) {
   const [open, setOpen] = useState(null);
   const { enqueueSnackbar } = useSnackbar();
   const { push, reload } = useRouter();
-  const linkTo = `${PATH_DASHBOARD.blog.root}/post/edit/${postId}`;
+  const postEditLink = `${PATH_DASHBOARD.blog.root}/post/edit/${postId}`;
+  const postViewLink = `${PATH_DASHBOARD.blog.root}/post/${postId}`;
   // --------------------------------------------------------------------------
   const postDeleteHandler = async () => {
     try {
@@ -265,7 +176,7 @@ function MoreMenuButton({ postId }) {
 
   // --------------------------------------------------------------------------
   const postEditHadler = () => {
-    push(linkTo);
+    push(postEditLink);
   };
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -300,9 +211,24 @@ function MoreMenuButton({ postId }) {
           '& .MuiMenuItem-root': { px: 1, typography: 'body2', borderRadius: 0.75 },
         }}
       >
+        <MenuItem>
+          <NextLink href={postViewLink} passHref>
+            <Link
+              color="inherit"
+              target={'_blank'}
+              style={{ textDecoration: 'none' }}
+              sx={{ display: 'flex', alignItems: 'center' }}
+            >
+              <Iconify icon={'eva:external-link-fill'} sx={{ ...ICON }} /> View Post
+            </Link>
+          </NextLink>
+        </MenuItem>
+
+        <Divider sx={{ borderStyle: 'dashed' }} />
+
         <MenuItem onClick={postEditHadler}>
           <Iconify icon={'eva:edit-fill'} sx={{ ...ICON }} />
-          Edit
+          Edit Post
         </MenuItem>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
@@ -343,7 +269,7 @@ function FormDialogs({ postDeleteHandler }) {
     <div>
       <MenuItem sx={{ color: 'error.main' }} onClick={handleClickOpen}>
         <Iconify icon={'eva:trash-2-outline'} sx={{ ...ICON }} />
-        Delete
+        Delete Post
       </MenuItem>
 
       <Dialog open={open} onClose={handleClose}>

@@ -14,6 +14,7 @@ Profile.propTypes = {
 };
 
 export default function Profile({ myProfile, posts, loading }) {
+  console.log(posts);
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={4}>

@@ -45,7 +45,7 @@ NavItemRoot.propTypes = {
   item: PropTypes.shape({
     children: PropTypes.array,
     icon: PropTypes.any,
-    path: PropTypes.string,
+    path: PropTypes.string ,
     title: PropTypes.string,
   }),
 };

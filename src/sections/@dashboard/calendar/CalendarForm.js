@@ -16,7 +16,8 @@ import { createEvent, updateEvent, deleteEvent } from '../../../redux/slices/cal
 import Iconify from '../../../components/Iconify';
 import { ColorSinglePicker } from '../../../components/color-utils';
 import { FormProvider, RHFTextField, RHFSwitch } from '../../../components/hook-form';
-
+// UUID
+import { v4 as uuidv4 } from 'uuid';
 // ----------------------------------------------------------------------
 
 const COLOR_OPTIONS = [
@@ -94,7 +95,7 @@ export default function CalendarForm({ event, range, onCancel }) {
         enqueueSnackbar('Update success!');
       } else {
         enqueueSnackbar('Create success!');
-        dispatch(createEvent(newEvent));
+        dispatch(createEvent({ ...newEvent, id: uuidv4() }));
       }
       onCancel();
       reset();

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 // @mui
-import { Box, Checkbox, FormControlLabel } from '@mui/material';
+import { Box, Button, Checkbox, FormControlLabel } from '@mui/material';
 // utils
 import { fShortenNumber } from '../../../utils/formatNumber';
 import axios from '../../../utils/axios';
@@ -114,6 +114,10 @@ export default function BlogPostTags({ post }) {
           }
           label={'Bookmark'}
         />
+        <Box sx={{ flex: 1 }} />
+        <Button color={'error'} variant={'contained'}>
+          Report Post
+        </Button>
       </Box>
     </Box>
   );

@@ -55,12 +55,12 @@ const navConfig = [
       { title: 'Calendar', path: PATH_DASHBOARD.calendar, icon: ICONS.calendar },
       {
         title: 'About',
-        path: PATH_PAGE.about,
+        path: PATH_DASHBOARD.about,
         icon: ICONS.about,
       },
       {
         title: 'Help',
-        path: PATH_PAGE.faqs,
+        path: PATH_DASHBOARD.help,
         icon: ICONS.help,
       },
     ],

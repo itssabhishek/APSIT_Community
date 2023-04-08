@@ -11,8 +11,8 @@ import { fShortenNumber } from '../../../utils/formatNumber';
 // components
 import Iconify from '../../../components/Iconify';
 import TextMaxLine from '../../../components/TextMaxLine';
-import SvgIconStyle from '../../../components/SvgIconStyle';
 import TextIconLabel from '../../../components/TextIconLabel';
+import { useTheme } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
 
@@ -25,19 +25,19 @@ export default function BlogPostCard({ post }) {
   const { title, _id, view, totalComments, like, author, createdAt } = post;
   return (
     <Card>
-      <Box sx={{ position: 'relative' }}>
-        <SvgIconStyle
-          src="https://minimal-assets-api.vercel.app/assets/icons/shape-avatar.svg"
-          sx={{
-            width: 80,
-            height: 36,
-            zIndex: 9,
-            bottom: -15,
-            position: 'absolute',
-            color: 'background.paper',
-          }}
-        />
-      </Box>
+      {/*<Box sx={{ position: 'relative' }}>*/}
+      {/*  <SvgIconStyle*/}
+      {/*    src="https://minimal-assets-api.vercel.app/assets/icons/shape-avatar.svg"*/}
+      {/*    sx={{*/}
+      {/*      width: 80,*/}
+      {/*      height: 36,*/}
+      {/*      zIndex: 9,*/}
+      {/*      bottom: -15,*/}
+      {/*      position: 'absolute',*/}
+      {/*      color: 'background.paper',*/}
+      {/*    }}*/}
+      {/*  />*/}
+      {/*</Box>*/}
 
       <PostContent
         title={title}
@@ -73,11 +73,13 @@ export function PostContent({ title, id, name, comment, like, createdAt }) {
     { number: like, icon: 'eva:heart-fill' },
   ];
 
+  const theme = useTheme();
   return (
     <CardContent
       sx={{
         pt: 4.5,
         width: 1,
+        background: theme.palette.background.neutral,
       }}
     >
       <Typography>{name}</Typography>

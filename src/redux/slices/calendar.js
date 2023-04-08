@@ -4,6 +4,9 @@ import axios from '../../utils/axios';
 //
 import { dispatch } from '../store';
 
+// generate randome UUIDs
+import { v4 as uuidv4 } from 'uuid';
+
 // ----------------------------------------------------------------------
 
 const initialState = {
@@ -18,67 +21,104 @@ const initialState = {
     // '#04297A', // theme.palette.info.darker
     // '#7A0C2E', // theme.palette.error.darker
     {
-      id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2',
+      id: uuidv4(),
       allDay: true,
-      textColor: '#FF4842',
-      description: 'Mahatma Gandhi Jayanti (Holiday)',
-      start: '2022-10-01T18:30:00.000Z',
-      end: '2022-10-02T18:30:00.000Z',
-      title: 'Mahatma Gandhi Jayanti',
-    },
-    {
-      id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b3',
-      allDay: true,
-      textColor: '#FF4842',
-      description: 'Dasara (Holiday)',
-      start: '2022-10-04T18:30:00.000Z',
-      end: '2022-10-05T18:30:00.000Z',
-      title: 'Dasara (Holiday)',
-    },
-    {
-      id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
-      allDay: false,
-      textColor: '#54D62C',
-      description: 'Navratri celebration',
-      start: '2022-10-04T08:00:11.290Z',
-      end: '2022-10-04T12:00:11.290Z',
-      title: 'Navratri celebration',
-    },
-    {
-      id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b6',
-      allDay: false,
-      textColor: '#FFC107',
-      description: 'Term Test-II & Academic Review (TE & BE)',
-      start: '2022-10-15T05:15:11.290Z',
-      end: '2022-10-18T05:30:11.290Z',
-      title: 'Term Test-II & Academic Review (TE & BE)',
-    },
-    {
-      id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z6',
-      allDay: false,
-      textColor: '#FFC107',
-      description: 'Term Test-II & Academic Review (SE & TE Honour / Minor)',
-      start: '2022-10-19T05:15:11.290Z',
-      end: '2022-10-21T05:30:11.290Z',
-      title: 'Term Test-II & Academic Review (SE & TE Honour / Minor)',
-    },
-    {
-      id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b7',
-      allDay: true,
-      textColor: '#FF4842',
-      description: 'Diwali (Holiday)',
-      start: '2022-10-24T16:59:59.999Z',
-      end: '2022-10-29T17:00:00.000Z',
-      title: 'Diwali (Holiday)',
-    },
-    {
-      id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b8',
-      allDay: false,
       textColor: '#7A0C2E',
-      description: '3rd Defaulter List (SE/TE/BE)',
-      start: '2022-10-14T07:45:11.290Z',
-      end: '2022-10-14T07:50:11.290Z',
-      title: '3rd Defaulter List (SE/TE/BE)',
+      description: 'Mahavir Jayanti (Holiday)',
+      start: '2023-04-03T18:30:00.000Z',
+      end: '2023-04-04T18:30:00.000Z',
+      title: 'Mahavir Jayanti',
+    },
+    {
+      id: uuidv4(),
+      allDay: true,
+      textColor: '#7A0C2E',
+      description: 'Good Friday (Holiday)',
+      start: '2023-04-06T18:30:00.000Z',
+      end: '2023-04-07T18:30:00.000Z',
+      title: 'Good Friday',
+    },
+
+    {
+      id: uuidv4(),
+      allDay: true,
+      textColor: '#7A0C2E',
+      description: 'Dr. Babasaheb Ambedkar Jayanti (Holiday)',
+      start: '2023-04-13T18:30:00.000Z',
+      end: '2023-04-14T18:30:00.000Z',
+      title: 'Dr. Babasaheb Ambedkar Jayanti',
+    },
+    {
+      id: uuidv4(),
+      allDay: false,
+      textColor: '#FFC107',
+      description: 'Day 1 of Term Test-II & Academic Review',
+      start: '2023-04-16T29:00:00.000Z',
+      end: '2023-04-16T34:00:00.000Z',
+      title: 'Term Test-II & Academic Review',
+    },
+    {
+      id: uuidv4(),
+      allDay: false,
+      textColor: '#FFC107',
+      description: 'Day 2 of Term Test-II',
+      start: '2023-04-17T29:00:00.000Z',
+      end: '2023-04-17T34:00:00.000Z',
+      title: 'Term Test-II',
+    },
+    {
+      id: uuidv4(),
+      allDay: false,
+      textColor: '#FFC107',
+      description: 'Day 3 of Term Test-II',
+      start: '2023-04-18T29:00:00.000Z',
+      end: '2023-04-18T34:00:00.000Z',
+      title: 'Term Test-II',
+    },
+    {
+      id: uuidv4(),
+      allDay: false,
+      textColor: '#FF4842',
+      description: 'Third defaulter list',
+      start: '2023-04-19T18:30:00.000Z',
+      end: '2023-04-20T18:30:00.000Z',
+      title: 'Third defaulter list',
+    },
+    {
+      id: uuidv4(),
+      allDay: false,
+      textColor: '#FFC107',
+      description: 'Commencement of Oral/Practical examination',
+      start: '2023-04-23T18:30:00.000Z',
+      end: '2023-04-27T18:30:00.000Z',
+      title: 'Oral/Practical',
+    },
+    {
+      id: uuidv4(),
+      allDay: true,
+      textColor: '#7A0C2E',
+      description: 'Maharashtra Day (Holiday)',
+      start: '2023-04-30T18:30:00.000Z',
+      end: '2023-05-01T18:30:00.000Z',
+      title: 'Maharashtra Day',
+    },
+    {
+      id: uuidv4(),
+      allDay: true,
+      textColor: '#7a0c41',
+      description: 'Buddha Poornima (Holiday)',
+      start: '2023-05-03T18:30:00.000Z',
+      end: '2023-05-04T18:30:00.000Z',
+      title: 'Buddha Poornima',
+    },
+    {
+      id: uuidv4(),
+      allDay: false,
+      textColor: '#FFC107',
+      description: 'Theory Examination',
+      start: '2023-05-07T18:30:00.000Z',
+      end: '2023-05-19T18:30:00.000Z',
+      title: 'Theory Examination',
     },
   ],
   isOpenModal: false,
@@ -188,8 +228,8 @@ export function createEvent(newEvent) {
   return async () => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.post('/api/calendar/events/new', newEvent);
-      dispatch(slice.actions.createEventSuccess(response.data.event));
+      // const response = await axios.post('/api/calendar/events/new', newEvent);
+      dispatch(slice.actions.createEventSuccess(newEvent));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
@@ -202,11 +242,11 @@ export function updateEvent(eventId, updateEvent) {
   return async () => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.post('/api/calendar/events/update', {
-        eventId,
-        updateEvent,
-      });
-      dispatch(slice.actions.updateEventSuccess(response.data.event));
+      // const response = await axios.post('/api/calendar/events/update', {
+      //   eventId,
+      //   updateEvent,
+      // });
+      dispatch(slice.actions.updateEventSuccess({ ...updateEvent, id: eventId }));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
@@ -219,7 +259,7 @@ export function deleteEvent(eventId) {
   return async () => {
     dispatch(slice.actions.startLoading());
     try {
-      await axios.post('/api/calendar/events/delete', { eventId });
+      // await axios.post('/api/calendar/events/delete', { eventId });
       dispatch(slice.actions.deleteEventSuccess({ eventId }));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
