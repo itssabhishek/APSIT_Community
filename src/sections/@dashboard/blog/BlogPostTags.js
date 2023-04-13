@@ -103,16 +103,16 @@ export default function BlogPostTags({ post }) {
       axios
         .post('/post/report', {
           postId: post._id['$oid'],
-          moodleId: user.moodleId,
+          moodleId: [user.moodleId],
         })
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
             enqueueSnackbar('Post Reported');
           }
-          if (response.status === 201) {
-            enqueueSnackbar("Couldn't find the post.", {
-              variant: 'error',
+          if (response.status === 401) {
+            enqueueSnackbar('You have already reported this post.', {
+              variant: 'warning',
             });
           }
           if (response.status === 500) {
@@ -194,9 +194,8 @@ function FormDialogs({ postReportHandler }) {
     <div>
       <Button color={'warning'} variant="contained" onClick={handleClickOpen}>
         <Iconify icon={'ic:twotone-warning'} sx={{ ...ICON }} />
-        Report Post
+        Report
       </Button>
-
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Report post</DialogTitle>
         <DialogContent>
