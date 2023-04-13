@@ -103,16 +103,16 @@ export default function BlogPostTags({ post }) {
       axios
         .post('/post/report', {
           postId: post._id['$oid'],
-          moodleId: user.moodleId,
+          moodleId: [user.moodleId],
         })
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
             enqueueSnackbar('Post Reported');
           }
-          if (response.status === 201) {
-            enqueueSnackbar("Couldn't find the post.", {
-              variant: 'error',
+          if (response.status === 401) {
+            enqueueSnackbar('You have already reported this post.', {
+              variant: 'warning',
             });
           }
           if (response.status === 500) {
