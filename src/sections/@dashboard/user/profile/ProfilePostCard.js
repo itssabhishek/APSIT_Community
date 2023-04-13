@@ -230,9 +230,7 @@ function MoreMenuButton({ postId }) {
           <Iconify icon={'eva:edit-fill'} sx={{ ...ICON }} />
           Edit Post
         </MenuItem>
-
         <Divider sx={{ borderStyle: 'dashed' }} />
-
         <FormDialogs postDeleteHandler={postDeleteHandler} />
       </MenuPopover>
     </>

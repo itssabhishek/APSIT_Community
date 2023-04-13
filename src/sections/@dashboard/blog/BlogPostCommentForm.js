@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import useAuth from '../../../hooks/useAuth';
 import NextLink from 'next/link';
 
+import { v4 as uuidv4 } from 'uuid';
 // ----------------------------------------------------------------------
 
 const RootStyles = styled('div')(({ theme }) => ({
@@ -33,6 +34,7 @@ export default function BlogPostCommentForm({ onComment }) {
   });
 
   const defaultValues = {
+    id: uuidv4(),
     name: user.displayName,
     avatarUrl: user.avatarUrl,
     message: '',
@@ -63,7 +65,9 @@ export default function BlogPostCommentForm({ onComment }) {
       <Typography variant="body2" sx={{ mb: 3, color: (theme) => theme.palette.warning.dark }}>
         *Your comments will be monitored. Please read our{' '}
         <NextLink href={'/Terms&Conditions.pdf'} passHref>
-          <Link color="inherit">terms and conditions</Link>
+          <Link color="inherit" style={{ textDecoration: 'underline' }}>
+            terms and conditions
+          </Link>
         </NextLink>
         .
       </Typography>

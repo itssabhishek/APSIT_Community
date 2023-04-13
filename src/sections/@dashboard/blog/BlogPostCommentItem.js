@@ -16,6 +16,7 @@ import {
 // utils
 import { fDate } from '../../../utils/formatTime';
 import Iconify from '../../../components/Iconify';
+import axios from '../../../utils/axios';
 
 // ----------------------------------------------------------------------
 
@@ -39,6 +40,36 @@ export default function BlogPostCommentItem({ name, avatarUrl, message, tagUser,
   const handleChangeMessage = (reply) => {
     setReply(reply);
   };
+
+  // const sendReplyHandler = async () => {
+  //   try {
+  //     axios
+  //       .post('/post/report', {
+  //         postId: post._id['$oid'],
+  //         moodleId: user.moodleId,
+  //       })
+  //       .then((response) => {
+  //         console.log(response);
+  //         if (response.status === 200) {
+  //           enqueueSnackbar('Post Reported');
+  //         }
+  //         if (response.status === 201) {
+  //           enqueueSnackbar("Couldn't find the post.", {
+  //             variant: 'error',
+  //           });
+  //         }
+  //         if (response.status === 500) {
+  //           enqueueSnackbar('Sorry an error has been occurred.', {
+  //             variant: 'error',
+  //           });
+  //         }
+  //       });
+  //   } catch (e) {
+  //     enqueueSnackbar(e.message, {
+  //       variant: 'error',
+  //     });
+  //   }
+  // }
 
   return (
     <>
