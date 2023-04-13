@@ -196,7 +196,6 @@ function FormDialogs({ postReportHandler }) {
         <Iconify icon={'ic:twotone-warning'} sx={{ ...ICON }} />
         Report
       </Button>
-
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Report post</DialogTitle>
         <DialogContent>
