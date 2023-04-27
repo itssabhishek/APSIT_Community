@@ -17,13 +17,13 @@ import { SkeletonPostItem } from '../../../components/skeleton';
 
 // sections
 import { BlogPostCard, BlogPostsSearch, BlogPostsSort } from '../../../sections/@dashboard/blog';
+import useAuth from '../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
 const SORT_OPTIONS = [
   { value: 'latest', label: 'Latest' },
-  { value: 'popular', label: 'Popular' },
-  { value: 'trending', label: 'Trending' },
+  { value: 'oldest', label: 'Oldest' },
   { value: 'bookmarked', label: 'Bookmarked' },
 ];
 
@@ -35,15 +35,25 @@ BlogPosts.getLayout = function getLayout(page) {
 
 // ----------------------------------------------------------------------
 
-const applySort = (posts, sortBy) => {
+const applySort = (posts, sortBy, bookmarkedPostIds) => {
+  console.log(bookmarkedPostIds);
   if (sortBy === 'latest') {
     return orderBy(posts, ['createdAt'], ['desc']);
   }
   if (sortBy === 'oldest') {
     return orderBy(posts, ['createdAt'], ['asc']);
   }
-  if (sortBy === 'popular') {
-    return orderBy(posts, ['view'], ['desc']);
+  if (sortBy === 'bookmarked') {
+    if (bookmarkedPostIds) {
+      const bookmarkedPosts = bookmarkedPostIds.map((postId) => {
+        return posts.find((post) => post._id['$oid'] === postId);
+      });
+
+      const existingPosts = bookmarkedPosts.filter((value) => value !== undefined);
+
+      return orderBy(existingPosts, ['createdAt'], ['desc']);
+    }
+    return posts;
   }
   return posts;
 };
@@ -55,9 +65,13 @@ export default function BlogPosts() {
 
   const [posts, setPosts] = useState([]);
 
+  const { user } = useAuth();
+
+  console.log(user);
+
   const [filters, setFilters] = useState('latest');
 
-  const sortedPosts = applySort(posts, filters);
+  const sortedPosts = applySort(posts, filters, user.bookmark);
 
   const getAllPosts = useCallback(async () => {
     try {
@@ -85,7 +99,7 @@ export default function BlogPosts() {
     <Page title="Home">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-          <BlogPostsSearch />
+          <BlogPostsSearch posts={posts} />
           <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} />
         </Stack>
 

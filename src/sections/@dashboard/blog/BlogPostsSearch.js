@@ -18,6 +18,7 @@ import Image from '../../../components/Image';
 import Iconify from '../../../components/Iconify';
 import InputStyle from '../../../components/InputStyle';
 import SearchNotFound from '../../../components/SearchNotFound';
+import PropTypes from 'prop-types';
 
 // ----------------------------------------------------------------------
 
@@ -27,34 +28,31 @@ const PopperStyle = styled((props) => <Popper placement="bottom-start" {...props
 
 // ----------------------------------------------------------------------
 
-export default function BlogPostsSearch() {
-  const { push } = useRouter();
+BlogPostsSearch.propTypes = {
+  posts: PropTypes.array,
+};
 
-  const isMountedRef = useIsMountedRef();
+export default function BlogPostsSearch({ posts }) {
+  const router = useRouter();
 
   const [searchQuery, setSearchQuery] = useState('');
 
   const [searchResults, setSearchResults] = useState([]);
 
-  const handleChangeSearch = async (value) => {
-    try {
-      setSearchQuery(value);
-      if (value) {
-        const response = await axios.get('/api/blog/posts/search', {
-          params: { query: value },
-        });
+  const handleChangeSearch = (value) => {
+    setSearchQuery(value);
+    if (value) {
+      const foundedPosts = posts.filter((post) => {
+        const regex = new RegExp(value, 'i');
+        if (regex.test(post.title)) return post;
+      });
 
-        if (isMountedRef.current) {
-          setSearchResults(response.data.results);
-        }
-      }
-    } catch (error) {
-      console.error(error);
+      setSearchResults(foundedPosts);
     }
   };
 
-  const handleClick = (title) => {
-    push(`${PATH_DASHBOARD.blog.root}/post/${paramCase(title)}`);
+  const handleClick = (postId) => {
+    router.push(`${PATH_DASHBOARD.blog.root}/post/${postId}`);
   };
 
   const handleKeyUp = (event) => {
@@ -91,14 +89,16 @@ export default function BlogPostsSearch() {
         />
       )}
       renderOption={(props, post, { inputValue }) => {
-        const { title, cover } = post;
+        const { _id, title, author } = post;
         const matches = match(title, inputValue);
         const parts = parse(title, matches);
 
         return (
           <li {...props}>
-            <Image alt={cover} src={cover} sx={{ width: 48, height: 48, borderRadius: 1, flexShrink: 0, mr: 1.5 }} />
-            <Link underline="none" onClick={() => handleClick(title)}>
+            <Link underline="none" onClick={() => handleClick(_id['$oid'])}>
+              <Typography key={Math.random() * 87465} color={'warning.main'} variant="subtitle2">
+                {author.name}
+              </Typography>
               {parts.map((part, index) => (
                 <Typography
                   key={index}

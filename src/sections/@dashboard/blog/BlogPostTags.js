@@ -100,29 +100,22 @@ export default function BlogPostTags({ post }) {
 
   const postReportHandler = async () => {
     try {
-      axios
-        .post('/post/report', {
-          postId: post._id['$oid'],
-          moodleId: [user.moodleId],
-        })
-        .then((response) => {
-          console.log(response);
-          if (response.status === 200) {
-            enqueueSnackbar('Post Reported');
-          }
-          if (response.status === 401) {
-            enqueueSnackbar('You have already reported this post.', {
-              variant: 'warning',
-            });
-          }
-          if (response.status === 500) {
-            enqueueSnackbar('Sorry an error has been occurred.', {
-              variant: 'error',
-            });
-          }
+      const response = await axios.post('/post/report', {
+        postId: post._id['$oid'],
+        moodleId: user.moodleId,
+      });
+      console.log(response);
+      if (response.status === 200) {
+        enqueueSnackbar('Post Reported');
+      }
+      if (response.status === 208) {
+        enqueueSnackbar('You have already reported this post.', {
+          variant: 'warning',
         });
-    } catch (e) {
-      enqueueSnackbar(e.message, {
+      }
+    } catch (error) {
+      console.log(error);
+      enqueueSnackbar('Sorry an error has occurred.', {
         variant: 'error',
       });
     }

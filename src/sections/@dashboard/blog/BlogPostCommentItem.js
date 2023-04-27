@@ -17,21 +17,36 @@ import {
 import { fDate } from '../../../utils/formatTime';
 import Iconify from '../../../components/Iconify';
 import axios from '../../../utils/axios';
+import { useSnackbar } from 'notistack';
+import useAuth from '../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
 BlogPostCommentItem.propTypes = {
   name: PropTypes.string,
+  parentId: PropTypes.string,
+  postId: PropTypes.string,
   avatarUrl: PropTypes.string,
   message: PropTypes.string,
-  tagUser: PropTypes.string,
   postedAt: PropTypes.string,
   hasReply: PropTypes.bool,
+  addNewComment: PropTypes.func,
 };
 
-export default function BlogPostCommentItem({ name, avatarUrl, message, tagUser, postedAt, hasReply }) {
+export default function BlogPostCommentItem({
+  name,
+  parentId,
+  postId,
+  avatarUrl,
+  message,
+  postedAt,
+  hasReply,
+  addNewComment,
+}) {
   const [openReply, setOpenReply] = useState(false);
   const [reply, setReply] = useState('');
+  const { enqueueSnackbar } = useSnackbar();
+  const { user } = useAuth();
 
   const handleOpenReply = () => {
     setOpenReply((prevState) => !prevState);
@@ -41,35 +56,30 @@ export default function BlogPostCommentItem({ name, avatarUrl, message, tagUser,
     setReply(reply);
   };
 
-  // const sendReplyHandler = async () => {
-  //   try {
-  //     axios
-  //       .post('/post/report', {
-  //         postId: post._id['$oid'],
-  //         moodleId: user.moodleId,
-  //       })
-  //       .then((response) => {
-  //         console.log(response);
-  //         if (response.status === 200) {
-  //           enqueueSnackbar('Post Reported');
-  //         }
-  //         if (response.status === 201) {
-  //           enqueueSnackbar("Couldn't find the post.", {
-  //             variant: 'error',
-  //           });
-  //         }
-  //         if (response.status === 500) {
-  //           enqueueSnackbar('Sorry an error has been occurred.', {
-  //             variant: 'error',
-  //           });
-  //         }
-  //       });
-  //   } catch (e) {
-  //     enqueueSnackbar(e.message, {
-  //       variant: 'error',
-  //     });
-  //   }
-  // }
+  const handleCommentReply = async () => {
+    try {
+      const commentData = {
+        name: user.displayName,
+        parentId: parentId,
+        postId: postId,
+        avatarUrl: user.avatarUrl,
+        message: reply,
+        postedAt: String(new Date()),
+      };
+
+      const response = await axios.post('/post/replycomment', commentData);
+
+      if (response.status === 200) {
+        enqueueSnackbar('Replied successfully.');
+        setReply('');
+        addNewComment(commentData);
+      }
+    } catch (e) {
+      enqueueSnackbar('Sorry an error has occurred.', {
+        variant: 'error',
+      });
+    }
+  };
 
   return (
     <>
@@ -104,7 +114,7 @@ export default function BlogPostCommentItem({ name, avatarUrl, message, tagUser,
                 {fDate(postedAt)}
               </Typography>
               <Typography component="span" variant="body2">
-                <strong>{tagUser}</strong> {message}
+                {message}
               </Typography>
             </>
           }
@@ -138,7 +148,7 @@ export default function BlogPostCommentItem({ name, avatarUrl, message, tagUser,
               },
             }}
           />
-          <IconButton>
+          <IconButton onClick={handleCommentReply}>
             <Iconify icon={'ic:round-send'} width={24} height={24} />
           </IconButton>
         </Stack>

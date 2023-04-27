@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Box, List } from '@mui/material';
 //
 import BlogPostCommentItem from './BlogPostCommentItem';
+import { useEffect, useState } from 'react';
 
 // ----------------------------------------------------------------------
 
@@ -11,35 +12,53 @@ BlogPostCommentList.propTypes = {
 };
 
 export default function BlogPostCommentList({ comments }) {
+  const [currentComments, updateCurrentComments] = useState([]);
+
+  useEffect(() => updateCurrentComments(comments), [comments]);
+
+  const addNewComment = (newComment) => {
+    const updatedCommentsArray = currentComments.map((comment) => {
+      if (comment.id === newComment.parentId) {
+        comment.replyComment.push(newComment);
+      }
+
+      return comment;
+    });
+
+    updateCurrentComments(updatedCommentsArray);
+  };
+
   return (
     <List disablePadding>
-      {comments.map((comment) => {
-        const { id, replyComment, users } = comment;
+      {currentComments.map((comment) => {
+        const { id, name, avatarUrl, message, replyComment, postId, postedAt } = comment;
         const hasReply = replyComment.length > 0;
 
         return (
-          <Box key={Math.random() * 1000000000} sx={{}}>
+          <Box key={Math.random() * 10000} sx={{}}>
             <BlogPostCommentItem
-              name={comment.name}
-              avatarUrl={comment.avatarUrl}
-              postedAt={comment.postedAt}
-              message={comment.message}
+              parentId={id}
+              postId={postId}
+              name={name}
+              avatarUrl={avatarUrl}
+              postedAt={postedAt}
+              message={message}
+              addNewComment={addNewComment}
             />
             {hasReply &&
-              replyComment.map((reply) => {
-                const user = users.find((_user) => _user.id === reply.userId);
-                return (
-                  <BlogPostCommentItem
-                    key={reply.id}
-                    tagUser={reply.tagUser}
-                    postedAt={reply.postedAt}
-                    message={reply.message}
-                    name={user?.name || ''}
-                    avatarUrl={user?.avatarUrl}
-                    hasReply
-                  />
-                );
-              })}
+              replyComment.map((reply) => (
+                <BlogPostCommentItem
+                  key={Math.random() * 100000}
+                  parentId={id}
+                  postId={postId}
+                  postedAt={reply.postedAt}
+                  message={reply.message}
+                  name={reply.name}
+                  avatarUrl={reply.avatarUrl}
+                  addNewComment={addNewComment}
+                  hasReply
+                />
+              ))}
           </Box>
         );
       })}
