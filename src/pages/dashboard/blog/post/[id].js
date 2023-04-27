@@ -30,6 +30,7 @@ import { m } from 'framer-motion';
 import { varBounce } from '../../../../components/animate';
 import { PageNotFoundIllustration } from '../../../../assets';
 import NextLink from 'next/link';
+import useAuth from '../../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
@@ -72,9 +73,9 @@ export default function BlogPost() {
 
   const onComment = async (value) => {
     try {
-      const response = await axios.post('/post/comments', { postId: id, ...value });
+      const response = await axios.post('/post/comments', { ...value, postId: id });
       if (response.status === 200) {
-        setComments((prevState) => [...prevState, value]);
+        setComments((prevState) => [...prevState, { ...value, postId: id }]);
       }
     } catch (error) {
       console.error(error);

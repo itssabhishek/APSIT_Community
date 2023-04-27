@@ -6,6 +6,7 @@ import { dispatch } from '../store';
 
 // generate randome UUIDs
 import { v4 as uuidv4 } from 'uuid';
+import useAuth from '../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
@@ -210,11 +211,13 @@ export const { openModal, closeModal, selectEvent } = slice.actions;
 
 // ----------------------------------------------------------------------
 
-export function getEvents() {
+export function getEvents(moodleId) {
   return async () => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get('/api/calendar/events');
+      const response = await axios.post('/api/calendar/events', {
+        moodleId: moodleId,
+      });
       dispatch(slice.actions.getEventsSuccess(response.data.events));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
