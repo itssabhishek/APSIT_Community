@@ -1,17 +1,16 @@
 // @mui
-import { styled } from '@mui/material/styles';
-import { Container, Divider, Grid, Typography } from '@mui/material';
+import { Container, Grid } from "@mui/material";
 // layouts
-import Layout from '../../layouts';
+import Layout from "../../layouts";
 // components
-import Page from '../../components/Page';
+import Page from "../../components/Page";
 // sections
-import { FaqsCategory, FaqsForm, FaqsHero } from '../../sections/faqs';
-import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import { PATH_DASHBOARD } from '../../routes/paths';
-import MainFooter from '../../layouts/main/MainFooter';
-import useSettings from '../../hooks/useSettings';
-import { ContactForm } from '../../sections/contact';
+import { FaqsHero } from "../../sections/faqs";
+import HeaderBreadcrumbs from "../../components/HeaderBreadcrumbs";
+import { PATH_DASHBOARD } from "../../routes/paths";
+import MainFooter from "../../layouts/main/MainFooter";
+import useSettings from "../../hooks/useSettings";
+import { ContactForm } from "../../sections/contact";
 
 // ----------------------------------------------------------------------
 
@@ -34,10 +33,10 @@ export default function Help() {
           <Grid item xs={12}>
             <FaqsHero />
             <Container sx={{ mt: 15, mb: 10 }}>
-              <Typography variant="h3" sx={{ mb: 5 }}>
-                Contact details
-              </Typography>
-              <FaqsCategory />
+              {/*<Typography variant="h3" sx={{ mb: 5 }}>*/}
+              {/*  Contact details*/}
+              {/*</Typography>*/}
+              {/*<FaqsCategory />*/}
               <Grid container spacing={10}>
                 <Grid item xs={12} md={6}>
                   <ContactForm />

@@ -1,20 +1,20 @@
 // @mui
-import { Button, Container, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import { Button, Container, FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
 // hooks
-import useSettings from '../../hooks/useSettings';
+import useSettings from "../../hooks/useSettings";
 // layouts
-import Layout from '../../layouts';
+import Layout from "../../layouts";
 // components
-import Page from '../../components/Page';
+import Page from "../../components/Page";
 // sections
-import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import { PATH_DASHBOARD } from '../../routes/paths';
-import InternshipDataGrid from '../../components/InternshipDataGrid';
-import * as React from 'react';
-import { useCallback, useEffect, useState } from 'react';
-import axios from '../../utils/axios';
-import useIsMountedRef from '../../hooks/useIsMountedRef';
-import MainFooter from '../../layouts/main/MainFooter';
+import HeaderBreadcrumbs from "../../components/HeaderBreadcrumbs";
+import { PATH_DASHBOARD } from "../../routes/paths";
+import InternshipDataGrid from "../../components/InternshipDataGrid";
+import * as React from "react";
+import { useCallback, useEffect, useState } from "react";
+import axios from "../../utils/axios";
+import useIsMountedRef from "../../hooks/useIsMountedRef";
+import MainFooter from "../../layouts/main/MainFooter";
 
 // ----------------------------------------------------------------------
 
@@ -50,7 +50,6 @@ export default function Internship() {
         domain: domain,
       });
 
-      console.log('Internships', response.data.internships);
       setData(response.data.internships);
       setLoading(false);
     } catch (error) {

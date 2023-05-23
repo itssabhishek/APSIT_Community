@@ -1,22 +1,21 @@
 // @mui
-import { Box, Button, Container, Grid, Link, Modal, Paper, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Link, Modal, Paper, Typography } from "@mui/material";
 // hooks
-import useSettings from '../../hooks/useSettings';
+import useSettings from "../../hooks/useSettings";
 // layouts
-import Layout from '../../layouts';
+import Layout from "../../layouts";
 // components
-import Page from '../../components/Page';
+import Page from "../../components/Page";
 // sections
-import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import { PATH_DASHBOARD } from '../../routes/paths';
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Image from '../../components/Image';
-import { MotionViewport } from '../../components/animate';
-import { getContentFromS3 } from '../../utils/aws';
-import MainFooter from '../../layouts/main/MainFooter';
-import Iconify from '../../components/Iconify';
-import NextLink from 'next/link';
+import HeaderBreadcrumbs from "../../components/HeaderBreadcrumbs";
+import { PATH_DASHBOARD } from "../../routes/paths";
+import * as React from "react";
+import PropTypes from "prop-types";
+import Image from "../../components/Image";
+import { MotionViewport } from "../../components/animate";
+import MainFooter from "../../layouts/main/MainFooter";
+import Iconify from "../../components/Iconify";
+import NextLink from "next/link";
 
 // ----------------------------------------------------------------------
 
@@ -282,8 +281,6 @@ function ClubCard({ club }) {
     student_coordinator_contact,
   } = club;
 
-  const image = getContentFromS3(icon);
-
   return (
     <>
       <Paper
@@ -304,7 +301,7 @@ function ClubCard({ club }) {
         }}
         onClick={handleOpen}
       >
-        <Image alt={icon} visibleByDefault disabledEffect src={image} sx={{ mb: 2, width: 80, height: 80 }} />
+        <Image alt={icon} visibleByDefault disabledEffect src={icon} sx={{ mb: 2, width: 80, height: 80 }} />
         <Typography variant="subtitle2">{club_name}</Typography>
       </Paper>
       <Modal
@@ -330,7 +327,7 @@ function ClubCard({ club }) {
             justifyContent: 'center',
           }}
         >
-          <Image alt={icon} visibleByDefault disabledEffect src={image} sx={{ mb: 2, width: 150, height: 150 }} />
+          <Image alt={icon} visibleByDefault disabledEffect src={icon} sx={{ mb: 2, width: 150, height: 150 }} />
           <Typography variant="subtitle1">{club_name}</Typography>
           <Typography variant="body1">{faculty_coordinator_name}</Typography>
           <Typography variant="body2">{faculty_coordinator_contact}</Typography>

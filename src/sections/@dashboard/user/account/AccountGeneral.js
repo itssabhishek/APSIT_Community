@@ -1,19 +1,19 @@
-import * as Yup from 'yup';
-import { useSnackbar } from 'notistack';
-import { useCallback } from 'react';
+import * as Yup from "yup";
+import { useSnackbar } from "notistack";
+import { useCallback } from "react";
 // form
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 // @mui
-import { Box, Grid, Card, Stack, Typography } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+import { Box, Card, Grid, Stack, Typography } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 // hooks
-import useAuth from '../../../../hooks/useAuth';
+import useAuth from "../../../../hooks/useAuth";
 // utils
-import { fData } from '../../../../utils/formatNumber';
+import { fData } from "../../../../utils/formatNumber";
+import axios from "../../../../utils/axios";
 // components
-import { FormProvider, RHFSwitch, RHFSelect, RHFTextField, RHFUploadAvatar } from '../../../../components/hook-form';
-import axios from '../../../../utils/axios';
+import { FormProvider, RHFSelect, RHFTextField, RHFUploadAvatar } from "../../../../components/hook-form";
 
 // ----------------------------------------------------------------------
 
@@ -36,7 +36,6 @@ export default function AccountGeneral() {
       .matches(/^[0-9]+$/, 'Only numbers are allowed')
       .max(3, 'Must be less than 4 digit'),
     avatarUrl: Yup.string,
-    isPublic: Yup.bool,
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     about: Yup.string(),
   });
@@ -49,7 +48,6 @@ export default function AccountGeneral() {
     branch: user.branch,
     div: user.div,
     rollNumber: user.rollNumber,
-    isPublic: user.isPublic,
     email: user.email,
     avatarUrl: user.avatarUrl,
     about: user.about,
@@ -110,7 +108,7 @@ export default function AccountGeneral() {
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={4}>
-          <Card sx={{ py: 10, px: 3, textAlign: 'center' }}>
+          <Card sx={{ py: 12, px: 3, textAlign: 'center' }}>
             <RHFUploadAvatar
               name="avatarUrl"
               accept="image/*"
@@ -128,12 +126,10 @@ export default function AccountGeneral() {
                   }}
                 >
                   Allowed *.jpeg, *.jpg, *.png, *.gif
-                  <br /> max size of {fData(3145728)}
+                  <br /> max size of {fData(3000000)}
                 </Typography>
               }
             />
-
-            <RHFSwitch name="isPublic" labelPlacement="start" label="Public Profile" sx={{ mt: 5 }} />
           </Card>
         </Grid>
 

@@ -1,15 +1,14 @@
 // @mui
-import { styled } from '@mui/material/styles';
-import { Box, Container, Stack } from '@mui/material';
+import { styled } from "@mui/material/styles";
+import { Box, Container, Stack } from "@mui/material";
 // components
-import { MotionContainer, TextAnimate, varFade } from '../../components/animate';
-import { getContentFromS3 } from '../../utils/aws';
+import { MotionContainer, TextAnimate, varFade } from "../../components/animate";
 
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
   backgroundSize: 'cover',
-  backgroundImage: `url(${getContentFromS3('/overlay_1.svg')}),url(${getContentFromS3('/hero.jpg')})`,
+  backgroundImage: `url('/overlay_1.svg'),url('/hero.jpg')`,
   padding: theme.spacing(10, 0),
   [theme.breakpoints.up('md')]: {
     height: 400,

@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 // @mui
-import { styled } from '@mui/material/styles';
-import { Typography, Button, Card, CardContent } from '@mui/material';
-import { SeoIllustration } from '../../../../assets';
-import { PATH_DASHBOARD, PATH_DOCS, PATH_PAGE } from '../../../../routes/paths';
-import NextLink from 'next/link';
-import Iconify from '../../../../components/Iconify';
+import { styled } from "@mui/material/styles";
+import { Button, Card, CardContent, Typography } from "@mui/material";
+import { SeoIllustration } from "../../../../assets";
+import { PATH_DASHBOARD } from "../../../../routes/paths";
+import NextLink from "next/link";
+import Iconify from "../../../../components/Iconify";
 
 // ----------------------------------------------------------------------
 

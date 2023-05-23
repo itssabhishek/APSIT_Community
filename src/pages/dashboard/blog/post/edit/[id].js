@@ -1,17 +1,17 @@
 // ---------------------------------------------------------------------
-import useSettings from '../../../../../hooks/useSettings';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import axios from '../../../../../utils/axios';
-import HeaderBreadcrumbs from '../../../../../components/HeaderBreadcrumbs';
-import { Container, Typography } from '@mui/material';
-import Page from '../../../../../components/Page';
-import { sentenceCase } from 'change-case';
-import { PATH_DASHBOARD, PATH_PAGE } from '../../../../../routes/paths';
-import { BlogNewPostForm } from '../../../../../sections/@dashboard/blog';
-import Layout from '../../../../../layouts';
-import useAuth from '../../../../../hooks/useAuth';
-import { SkeletonNewPostForm } from '../../../../../components/skeleton';
+import useSettings from "../../../../../hooks/useSettings";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import axios from "../../../../../utils/axios";
+import HeaderBreadcrumbs from "../../../../../components/HeaderBreadcrumbs";
+import { Container, Typography } from "@mui/material";
+import Page from "../../../../../components/Page";
+import { sentenceCase } from "change-case";
+import { PATH_DASHBOARD, PATH_PAGE } from "../../../../../routes/paths";
+import { BlogNewPostForm } from "../../../../../sections/@dashboard/blog";
+import Layout from "../../../../../layouts";
+import useAuth from "../../../../../hooks/useAuth";
+import { SkeletonNewPostForm } from "../../../../../components/skeleton";
 
 // ----------------------------------------------------------------------
 
@@ -24,12 +24,10 @@ EditPost.getLayout = function getLayout(page) {
 export default function EditPost() {
   const { themeStretch } = useSettings();
   const { user } = useAuth();
-
   const { push } = useRouter();
   const { query } = useRouter();
   const { id } = query;
   const [post, setPost] = useState(null);
-
   const [error, setError] = useState(null);
 
   useEffect(() => {

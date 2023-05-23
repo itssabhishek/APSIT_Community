@@ -1,18 +1,18 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 // next
-import NextLink from 'next/link';
+import NextLink from "next/link";
 // @mui
-import { Box, Card, Typography, CardContent, Link, Stack } from '@mui/material';
+import { Card, CardContent, Link, Stack, Typography } from "@mui/material";
 // routes
-import { PATH_DASHBOARD } from '../../../routes/paths';
+import { PATH_DASHBOARD } from "../../../routes/paths";
 // utils
-import { fDate } from '../../../utils/formatTime';
-import { fShortenNumber } from '../../../utils/formatNumber';
+import { fDate } from "../../../utils/formatTime";
+import { fShortenNumber } from "../../../utils/formatNumber";
 // components
-import Iconify from '../../../components/Iconify';
-import TextMaxLine from '../../../components/TextMaxLine';
-import TextIconLabel from '../../../components/TextIconLabel';
-import { useTheme } from '@mui/material/styles';
+import Iconify from "../../../components/Iconify";
+import TextMaxLine from "../../../components/TextMaxLine";
+import TextIconLabel from "../../../components/TextIconLabel";
+import { useTheme } from "@mui/material/styles";
 
 // ----------------------------------------------------------------------
 
@@ -25,20 +25,6 @@ export default function BlogPostCard({ post }) {
   const { title, _id, view, totalComments, like, author, createdAt } = post;
   return (
     <Card>
-      {/*<Box sx={{ position: 'relative' }}>*/}
-      {/*  <SvgIconStyle*/}
-      {/*    src="https://minimal-assets-api.vercel.app/assets/icons/shape-avatar.svg"*/}
-      {/*    sx={{*/}
-      {/*      width: 80,*/}
-      {/*      height: 36,*/}
-      {/*      zIndex: 9,*/}
-      {/*      bottom: -15,*/}
-      {/*      position: 'absolute',*/}
-      {/*      color: 'background.paper',*/}
-      {/*    }}*/}
-      {/*  />*/}
-      {/*</Box>*/}
-
       <PostContent
         title={title}
         id={_id['$oid']}

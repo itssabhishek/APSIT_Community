@@ -1,36 +1,36 @@
-import { useCallback, useEffect, useState } from 'react';
-import { sentenceCase } from 'change-case';
+import { useCallback, useEffect, useState } from "react";
+import { sentenceCase } from "change-case";
 // next
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
+import NextLink from "next/link";
 // @mui
-import { Box, Button, Card, Container, Divider, Typography } from '@mui/material';
+import { Box, Button, Card, Container, Divider, Typography } from "@mui/material";
 // routes
-import { PATH_DASHBOARD } from '../../../../routes/paths';
+import { PATH_DASHBOARD } from "../../../../routes/paths";
 // hooks
-import useSettings from '../../../../hooks/useSettings';
-import useIsMountedRef from '../../../../hooks/useIsMountedRef';
+import useSettings from "../../../../hooks/useSettings";
+import useIsMountedRef from "../../../../hooks/useIsMountedRef";
 // utils
-import axios from '../../../../utils/axios';
+import axios from "../../../../utils/axios";
 // layouts
-import Layout from '../../../../layouts';
+import Layout from "../../../../layouts";
 // components
-import Page from '../../../../components/Page';
-import Markdown from '../../../../components/Markdown';
-import HeaderBreadcrumbs from '../../../../components/HeaderBreadcrumbs';
-import { SkeletonPost } from '../../../../components/skeleton';
+import Page from "../../../../components/Page";
+import Markdown from "../../../../components/Markdown";
+import HeaderBreadcrumbs from "../../../../components/HeaderBreadcrumbs";
+import { SkeletonPost } from "../../../../components/skeleton";
+import { varBounce } from "../../../../components/animate";
 // sections
 import {
   BlogPostCommentForm,
   BlogPostCommentList,
   BlogPostHero,
-  BlogPostTags,
-} from '../../../../sections/@dashboard/blog';
-import { useSnackbar } from 'notistack';
-import { m } from 'framer-motion';
-import { varBounce } from '../../../../components/animate';
-import { PageNotFoundIllustration } from '../../../../assets';
-import NextLink from 'next/link';
-import useAuth from '../../../../hooks/useAuth';
+  BlogPostTags
+} from "../../../../sections/@dashboard/blog";
+import { useSnackbar } from "notistack";
+import { m } from "framer-motion";
+
+import { PageNotFoundIllustration } from "../../../../assets";
 
 // ----------------------------------------------------------------------
 
@@ -121,11 +121,14 @@ export default function BlogPost() {
               </Box>
 
               <BlogPostCommentList comments={comments} />
+
               <BlogPostCommentForm onComment={onComment} />
             </Box>
           </Card>
         )}
+
         {!post && !error && <SkeletonPost />}
+
         {!post && error && (
           <Box sx={{ maxWidth: 480, margin: 'auto', textAlign: 'center' }}>
             <m.div variants={varBounce().in}>
@@ -133,12 +136,15 @@ export default function BlogPost() {
                 Sorry, post not found!
               </Typography>
             </m.div>
+
             <Typography sx={{ color: 'text.secondary' }}>
               Sorry, we couldn’t find the post you’re looking for. It might be deleted.
             </Typography>
+
             <m.div variants={varBounce().in}>
               <PageNotFoundIllustration sx={{ height: 260, my: { xs: 5, sm: 10 } }} />
             </m.div>
+
             <NextLink href={`${PATH_DASHBOARD.root}`}>
               <Button size="large" variant="contained">
                 Go to Home

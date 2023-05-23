@@ -1,21 +1,20 @@
 // next
-import NextLink from 'next/link';
+import NextLink from "next/link";
 // @mui
-import { styled } from '@mui/material/styles';
-import { Box, Card, Container, Link, Stack, Typography } from '@mui/material';
+import { styled } from "@mui/material/styles";
+import { Box, Card, Container, Link, Stack, Typography } from "@mui/material";
 // routes
-import { PATH_AUTH } from '../../routes/paths';
+import { PATH_AUTH } from "../../routes/paths";
 // hooks
-import useResponsive from '../../hooks/useResponsive';
+import useResponsive from "../../hooks/useResponsive";
 // guards
-import GuestGuard from '../../guards/GuestGuard';
+import GuestGuard from "../../guards/GuestGuard";
 // components
-import Page from '../../components/Page';
-import Logo from '../../components/Logo';
-import Image from '../../components/Image';
+import Page from "../../components/Page";
+import Logo from "../../components/Logo";
+import Image from "../../components/Image";
 // sections
-import { LoginForm } from '../../sections/auth/login';
-import { getContentFromS3 } from '../../utils/aws';
+import { LoginForm } from "../../sections/auth/login";
 
 // ----------------------------------------------------------------------
 
@@ -64,10 +63,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function Login() {
   const smUp = useResponsive('up', 'sm');
-
   const mdUp = useResponsive('up', 'md');
-
-  const signin = getContentFromS3('/illustration_signin.png');
 
   return (
     <GuestGuard>
@@ -75,6 +71,7 @@ export default function Login() {
         <RootStyle>
           <HeaderStyle>
             <Logo />
+
             {smUp && (
               <Typography variant="body2" sx={{ mt: { md: -2 } }}>
                 Don’t have an account? {''}
@@ -90,7 +87,7 @@ export default function Login() {
               <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
                 Hi, Welcome Back
               </Typography>
-              <Image src={signin} alt="login" />
+              <Image src={'/illustration_signin.png'} alt="login" />
             </SectionStyle>
           )}
 

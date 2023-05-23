@@ -1,24 +1,20 @@
-import { useState } from 'react';
-import { paramCase } from 'change-case';
-import parse from 'autosuggest-highlight/parse';
-import match from 'autosuggest-highlight/match';
+import { useState } from "react";
+import parse from "autosuggest-highlight/parse";
+import match from "autosuggest-highlight/match";
 // next
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 // @mui
-import { styled } from '@mui/material/styles';
-import { Link, Typography, Autocomplete, InputAdornment, Popper } from '@mui/material';
+import { styled } from "@mui/material/styles";
+import { Autocomplete, InputAdornment, Link, Popper, Typography } from "@mui/material";
 // hooks
-import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // utils
-import axios from '../../../utils/axios';
 // routes
-import { PATH_DASHBOARD } from '../../../routes/paths';
+import { PATH_DASHBOARD } from "../../../routes/paths";
 // components
-import Image from '../../../components/Image';
-import Iconify from '../../../components/Iconify';
-import InputStyle from '../../../components/InputStyle';
-import SearchNotFound from '../../../components/SearchNotFound';
-import PropTypes from 'prop-types';
+import Iconify from "../../../components/Iconify";
+import InputStyle from "../../../components/InputStyle";
+import SearchNotFound from "../../../components/SearchNotFound";
+import PropTypes from "prop-types";
 
 // ----------------------------------------------------------------------
 

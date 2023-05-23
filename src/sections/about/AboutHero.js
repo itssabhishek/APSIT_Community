@@ -1,17 +1,15 @@
-import { m } from 'framer-motion';
 // @mui
-import { styled } from '@mui/material/styles';
-import { Box, Container, Typography } from '@mui/material';
+import { styled } from "@mui/material/styles";
+import { Box, Container } from "@mui/material";
 // components
-import { MotionContainer, TextAnimate, varFade } from '../../components/animate';
-import { getContentFromS3 } from '../../utils/aws';
+import { MotionContainer, TextAnimate, varFade } from "../../components/animate";
 
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
   backgroundSize: 'cover',
   backgroundPosition: 'center',
-  backgroundImage: `url(${getContentFromS3('/overlay_1.svg')})`,
+  backgroundImage: '/overlay_1.svg',
   padding: theme.spacing(10, 0),
   [theme.breakpoints.up('md')]: {
     height: 400,

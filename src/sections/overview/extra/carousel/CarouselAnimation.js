@@ -1,17 +1,16 @@
-import PropTypes from 'prop-types';
-import Slider from 'react-slick';
-import { m } from 'framer-motion';
-import { useState, useRef } from 'react';
+import PropTypes from "prop-types";
+import Slider from "react-slick";
+import { m } from "framer-motion";
+import { useRef, useState } from "react";
 // @mui
-import { alpha, useTheme } from '@mui/material/styles';
-import { Box, Card, Paper, Typography, CardContent, useMediaQuery } from '@mui/material';
+import { useTheme } from "@mui/material/styles";
+import { Box, Card, CardContent, Paper, Typography, useMediaQuery } from "@mui/material";
 // _mock_
-import { _carouselsExample } from '../../../../_mock';
+import { _carouselsExample } from "../../../../_mock";
 // components
-import Image from '../../../../components/Image';
-import { MotionContainer, varFade } from '../../../../components/animate';
-import { CarouselArrowIndex } from '../../../../components/carousel';
-import { getContentFromS3 } from '../../../../utils/aws';
+import Image from "../../../../components/Image";
+import { MotionContainer, varFade } from "../../../../components/animate";
+import { CarouselArrowIndex } from "../../../../components/carousel";
 
 // ----------------------------------------------------------------------
 
@@ -74,7 +73,7 @@ function CarouselItem({ item, isActive }) {
   const isLarge = useMediaQuery(theme.breakpoints.up('sm'));
   return (
     <Paper sx={{ position: 'relative' }}>
-      <Image alt={title} src={getContentFromS3(image)} ratio="16/9" />
+      <Image alt={title} src={image} ratio="16/9" />
       <Box
         sx={{
           top: 0,

@@ -1,17 +1,14 @@
-import { m } from 'framer-motion';
-import NextLink from 'next/link';
+import { m } from "framer-motion";
+import NextLink from "next/link";
 // @mui
-import { styled, useTheme } from '@mui/material/styles';
-import { Button, Box, Container, Typography, Stack } from '@mui/material';
+import { styled } from "@mui/material/styles";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
 // routes
-import { PATH_AUTH } from '../../routes/paths';
+import { PATH_AUTH } from "../../routes/paths";
 // components
-import Iconify from '../../components/Iconify';
-import { MotionContainer, varFade } from '../../components/animate';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { getContentFromS3 } from '../../utils/aws';
-import { useCallback, useEffect, useState } from 'react';
-import axios from '../../utils/axios';
+import Iconify from "../../components/Iconify";
+import { MotionContainer, varFade } from "../../components/animate";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 // ----------------------------------------------------------------------
 
@@ -71,15 +68,12 @@ const HeroImgStyle = styled(m.img)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function HomeHero() {
-  const communityImage = getContentFromS3('/community-3d.png');
-  const overlay1 = getContentFromS3('/overlay_1.svg');
-
   const largeScreen = useMediaQuery((theme) => theme.breakpoints.up('sm'));
   return (
     <MotionContainer>
       <RootStyle>
-        <HeroOverlayStyle alt="overlay" src={overlay1} variants={varFade().in} />
-        <HeroImgStyle alt="hero" src={communityImage} variants={varFade().inUp} />
+        <HeroOverlayStyle alt="overlay" src={'/overlay_1.svg'} variants={varFade().in} />
+        <HeroImgStyle alt="hero" src={'/community-3d.png'} variants={varFade().inUp} />
         <Container>
           <ContentStyle>
             <m.div variants={varFade().inRight}>

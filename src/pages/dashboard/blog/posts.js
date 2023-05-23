@@ -1,23 +1,27 @@
-import orderBy from 'lodash/orderBy';
-import { useCallback, useEffect, useState } from 'react';
+// react
+import { useCallback, useEffect, useState } from "react";
 
 // @mui
-import { Container, Grid, Stack } from '@mui/material';
+import { Container, Grid, Stack, Typography } from "@mui/material";
+
 // hooks
-import useSettings from '../../../hooks/useSettings';
-import useIsMountedRef from '../../../hooks/useIsMountedRef';
+import useSettings from "../../../hooks/useSettings";
+import useIsMountedRef from "../../../hooks/useIsMountedRef";
+import useAuth from "../../../hooks/useAuth";
+
 // utils
-import axios from '../../../utils/axios';
+import axios from "../../../utils/axios";
+import orderBy from "lodash/orderBy";
 
 // layouts
-import Layout from '../../../layouts';
+import Layout from "../../../layouts";
+
 // components
-import Page from '../../../components/Page';
-import { SkeletonPostItem } from '../../../components/skeleton';
+import Page from "../../../components/Page";
+import { SkeletonPostItem } from "../../../components/skeleton";
 
 // sections
-import { BlogPostCard, BlogPostsSearch, BlogPostsSort } from '../../../sections/@dashboard/blog';
-import useAuth from '../../../hooks/useAuth';
+import { BlogPostCard, BlogPostsSearch, BlogPostsSort } from "../../../sections/@dashboard/blog";
 
 // ----------------------------------------------------------------------
 
@@ -36,7 +40,6 @@ BlogPosts.getLayout = function getLayout(page) {
 // ----------------------------------------------------------------------
 
 const applySort = (posts, sortBy, bookmarkedPostIds) => {
-  console.log(bookmarkedPostIds);
   if (sortBy === 'latest') {
     return orderBy(posts, ['createdAt'], ['desc']);
   }
@@ -59,35 +62,31 @@ const applySort = (posts, sortBy, bookmarkedPostIds) => {
 };
 
 export default function BlogPosts() {
-  const { themeStretch } = useSettings();
-
-  const isMountedRef = useIsMountedRef();
-
   const [posts, setPosts] = useState([]);
-
-  const { user } = useAuth();
-
-  console.log(user);
-
   const [filters, setFilters] = useState('latest');
-
+  const [loading, setLoading] = useState(true);
+  const { themeStretch } = useSettings();
+  const isMountedRef = useIsMountedRef();
+  const { user } = useAuth();
   const sortedPosts = applySort(posts, filters, user.bookmark);
 
-  const getAllPosts = useCallback(async () => {
+  const fetchPosts = useCallback(async () => {
     try {
       const response = await axios.get('/posts');
 
       if (isMountedRef.current) {
         setPosts(response.data.posts);
+        setLoading(false);
       }
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   }, [isMountedRef]);
 
   useEffect(() => {
-    getAllPosts();
-  }, [getAllPosts]);
+    fetchPosts().then((r) => r);
+  }, [fetchPosts]);
 
   const handleChangeSort = (value) => {
     if (value) {
@@ -104,14 +103,17 @@ export default function BlogPosts() {
         </Stack>
 
         <Grid container spacing={3}>
-          {(!posts.length ? [...Array(4)] : sortedPosts).map((post, index) =>
-            post ? (
-              <Grid key={post._id['$oid']} item xs={12} sm={6} md={(index === 0 && 6) || 3}>
-                <BlogPostCard post={post} index={index} />
-              </Grid>
-            ) : (
-              <SkeletonPostItem key={index} />
-            )
+          {loading
+            ? [...Array(4)].map((_, index) => <SkeletonPostItem key={index} />)
+            : sortedPosts.map((post) => (
+                <Grid key={post._id['$oid']} item xs={12} sm={6} md={3}>
+                  <BlogPostCard post={post} />
+                </Grid>
+              ))}
+          {!loading && !posts.length && (
+            <Grid item xs={12}>
+              <Typography variant="subtitle2">No posts found. Why won't you make one? </Typography>
+            </Grid>
           )}
         </Grid>
       </Container>

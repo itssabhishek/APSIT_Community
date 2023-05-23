@@ -1,21 +1,20 @@
 // next
-import NextLink from 'next/link';
+import NextLink from "next/link";
 // @mui
-import { styled } from '@mui/material/styles';
-import { Box, Card, Container, Link, Typography } from '@mui/material';
+import { styled } from "@mui/material/styles";
+import { Box, Card, Container, Link, Typography } from "@mui/material";
 // hooks
-import useResponsive from '../../hooks/useResponsive';
+import useResponsive from "../../hooks/useResponsive";
 // routes
-import { PATH_AUTH } from '../../routes/paths';
+import { PATH_AUTH } from "../../routes/paths";
 // guards
-import GuestGuard from '../../guards/GuestGuard';
+import GuestGuard from "../../guards/GuestGuard";
 // components
-import Page from '../../components/Page';
-import Logo from '../../components/Logo';
-import Image from '../../components/Image';
+import Page from "../../components/Page";
+import Logo from "../../components/Logo";
+import Image from "../../components/Image";
 // sections
-import { RegisterForm } from '../../sections/auth/register';
-import { getContentFromS3 } from '../../utils/aws';
+import { RegisterForm } from "../../sections/auth/register";
 
 // ----------------------------------------------------------------------
 
@@ -65,7 +64,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 export default function Register() {
   const smUp = useResponsive('up', 'sm');
   const mdUp = useResponsive('up', 'md');
-  const signin = getContentFromS3('/illustration_signin.png');
+
   return (
     <GuestGuard>
       <Page title="Register">
@@ -87,7 +86,7 @@ export default function Register() {
               <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
                 We are very excited to have you
               </Typography>
-              <Image alt="register" src={signin} />
+              <Image alt="register" src={'/illustration_signin.png'} />
             </SectionStyle>
           )}
 
