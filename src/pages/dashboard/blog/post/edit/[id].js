@@ -1,17 +1,33 @@
-// ---------------------------------------------------------------------
-import useSettings from "../../../../../hooks/useSettings";
-import { useRouter } from "next/router";
+// react
 import { useEffect, useState } from "react";
-import axios from "../../../../../utils/axios";
-import HeaderBreadcrumbs from "../../../../../components/HeaderBreadcrumbs";
-import { Container, Typography } from "@mui/material";
-import Page from "../../../../../components/Page";
-import { sentenceCase } from "change-case";
-import { PATH_DASHBOARD, PATH_PAGE } from "../../../../../routes/paths";
-import { BlogNewPostForm } from "../../../../../sections/@dashboard/blog";
-import Layout from "../../../../../layouts";
+
+// next
+import { useRouter } from "next/router";
+
+// hooks
+import useSettings from "../../../../../hooks/useSettings";
 import useAuth from "../../../../../hooks/useAuth";
+
+// @mui
+import { Container, Typography } from "@mui/material";
+
+// components
+import HeaderBreadcrumbs from "../../../../../components/HeaderBreadcrumbs";
+import Page from "../../../../../components/Page";
 import { SkeletonNewPostForm } from "../../../../../components/skeleton";
+
+// routes
+import { PATH_DASHBOARD, PATH_PAGE } from "../../../../../routes/paths";
+
+// sections
+import { BlogNewPostForm } from "../../../../../sections/@dashboard/blog";
+
+// layout
+import Layout from "../../../../../layouts";
+
+// util
+import axios from "../../../../../utils/axios";
+import { sentenceCase } from "change-case";
 
 // ----------------------------------------------------------------------
 

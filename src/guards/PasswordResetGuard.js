@@ -1,21 +1,22 @@
-import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
-// next
-import { useRouter } from "next/router";
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 // hooks
-import useAuth from "../hooks/useAuth";
-import Login from "../pages/auth/login";
-// components
-import LoadingScreen from "../components/LoadingScreen";
+import useAuth from '../hooks/useAuth';
+import { useRouter } from 'next/router';
+// routes
+import LoadingScreen from '../components/LoadingScreen';
+import ResetPassword from '../pages/auth/reset-password';
+
 
 // ----------------------------------------------------------------------
 
-AuthGuard.propTypes = {
+PasswordResetGuard.propTypes = {
   children: PropTypes.node,
 };
 
-export default function AuthGuard({ children }) {
-  const { isAuthenticated, isInitialized } = useAuth();
+export default function PasswordResetGuard({ children }) {
+
+  const { isVerified, isInitialized } = useAuth();
 
   const { pathname, push } = useRouter();
 
@@ -32,11 +33,11 @@ export default function AuthGuard({ children }) {
     return <LoadingScreen />;
   }
 
-  if (!isAuthenticated) {
+  if (!isVerified) {
     if (pathname !== requestedLocation) {
       setRequestedLocation(pathname);
     }
-    return <Login />;
+    return <ResetPassword />;
   }
 
   return <>{children}</>;

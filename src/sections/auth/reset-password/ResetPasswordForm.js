@@ -1,15 +1,18 @@
-import PropTypes from 'prop-types';
-import * as Yup from 'yup';
+import PropTypes from "prop-types";
+import * as Yup from "yup";
 // form
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 // @mui
-import { Stack } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+import { Stack } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 // hooks
-import useIsMountedRef from '../../../hooks/useIsMountedRef';
+import useIsMountedRef from "../../../hooks/useIsMountedRef";
 // components
-import { FormProvider, RHFTextField } from '../../../components/hook-form';
+import { FormProvider, RHFTextField } from "../../../components/hook-form";
+import axios from "../../../utils/axios";
+import { router } from "next/client";
+import { PATH_AUTH } from "../../../routes/paths";
 
 // ----------------------------------------------------------------------
 
@@ -27,7 +30,7 @@ export default function ResetPasswordForm({ onSent, onGetEmail }) {
 
   const methods = useForm({
     resolver: yupResolver(ResetPasswordSchema),
-    defaultValues: { email: 'demo@minimals.cc' },
+    defaultValues: { email: 'example@mail.com' },
   });
 
   const {
@@ -35,12 +38,17 @@ export default function ResetPasswordForm({ onSent, onGetEmail }) {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (email) => {
+    await router.push(PATH_AUTH.verify);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      const resetPassword = async () => {
+        const response = await axios.post('/reset-password', email);
+        console.log(response.data);
+      };
       if (isMountedRef.current) {
         onSent();
-        onGetEmail(data.email);
+        onGetEmail(email.email);
+        await resetPassword();
       }
     } catch (error) {
       console.error(error);
@@ -53,7 +61,7 @@ export default function ResetPasswordForm({ onSent, onGetEmail }) {
         <RHFTextField name="email" label="Email address" />
 
         <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
-          Reset Password
+          Continue
         </LoadingButton>
       </Stack>
     </FormProvider>

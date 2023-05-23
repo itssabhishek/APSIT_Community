@@ -8,7 +8,7 @@ import useResponsive from "../../hooks/useResponsive";
 // routes
 import { PATH_AUTH } from "../../routes/paths";
 // guards
-import GuestGuard from "../../guards/GuestGuard";
+import ResetPasswordGuard from "../../guards/PasswordResetGuard";
 // components
 import Page from "../../components/Page";
 import Logo from "../../components/Logo";
@@ -66,7 +66,7 @@ export default function Register() {
   const mdUp = useResponsive('up', 'md');
 
   return (
-    <GuestGuard>
+    <ResetPasswordGuard>
       <Page title="Register">
         <RootStyle>
           <HeaderStyle>
@@ -126,6 +126,6 @@ export default function Register() {
           </Container>
         </RootStyle>
       </Page>
-    </GuestGuard>
+    </ResetPasswordGuard>
   );
 }

@@ -1,5 +1,5 @@
+// react
 import { useCallback, useEffect, useState } from "react";
-import { sentenceCase } from "change-case";
 // next
 import { useRouter } from "next/router";
 import NextLink from "next/link";
@@ -10,8 +10,11 @@ import { PATH_DASHBOARD } from "../../../../routes/paths";
 // hooks
 import useSettings from "../../../../hooks/useSettings";
 import useIsMountedRef from "../../../../hooks/useIsMountedRef";
+import { useSnackbar } from "notistack";
 // utils
 import axios from "../../../../utils/axios";
+import { sentenceCase } from "change-case";
+import { m } from "framer-motion";
 // layouts
 import Layout from "../../../../layouts";
 // components
@@ -27,9 +30,7 @@ import {
   BlogPostHero,
   BlogPostTags
 } from "../../../../sections/@dashboard/blog";
-import { useSnackbar } from "notistack";
-import { m } from "framer-motion";
-
+// assets
 import { PageNotFoundIllustration } from "../../../../assets";
 
 // ----------------------------------------------------------------------

@@ -1,4 +1,4 @@
-import { capitalCase } from 'change-case';
+// react
 import { useState } from 'react';
 // @mui
 import { Box, Container, Tab, Tabs } from '@mui/material';
@@ -14,6 +14,8 @@ import Iconify from '../../../components/Iconify';
 import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
 // sections
 import { AccountGeneral } from '../../../sections/@dashboard/user/account';
+// utils
+import { capitalCase } from 'change-case';
 
 // ----------------------------------------------------------------------
 

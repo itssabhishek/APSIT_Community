@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
-import { Stack, IconButton, InputAdornment, Alert } from '@mui/material';
+import { Alert, IconButton, InputAdornment, Stack } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // hooks
 import useAuth from '../../../hooks/useAuth';
@@ -42,7 +42,7 @@ export default function RegisterForm() {
       .matches(/^[0-9]+$/, 'Only digits are allowed')
       .min(8, 'Must be exactly 8 digits')
       .max(8, 'Must be exactly 8 digits'),
-    password: Yup.string().required('Password is required'),
+    password: Yup.string().required('Password is required').min(8, 'Length should be more than 8 units'),
   });
 
   const defaultValues = {

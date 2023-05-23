@@ -5,7 +5,6 @@ export { default as SeverErrorIllustration } from './illustration_500';
 export { default as PageNotFoundIllustration } from './illustration_404';
 export { default as ComingSoonIllustration } from './illustration_coming_soon';
 export { default as MaintenanceIllustration } from './illustration_maintenance';
-export { default as NoDataIllustration } from './illustration_no_data';
 
 //
 export { default as SentIcon } from './icon_sent';

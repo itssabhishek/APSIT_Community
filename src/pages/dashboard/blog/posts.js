@@ -1,25 +1,19 @@
 // react
 import { useCallback, useEffect, useState } from "react";
-
 // @mui
 import { Container, Grid, Stack, Typography } from "@mui/material";
-
 // hooks
 import useSettings from "../../../hooks/useSettings";
 import useIsMountedRef from "../../../hooks/useIsMountedRef";
 import useAuth from "../../../hooks/useAuth";
-
 // utils
 import axios from "../../../utils/axios";
 import orderBy from "lodash/orderBy";
-
 // layouts
 import Layout from "../../../layouts";
-
 // components
 import Page from "../../../components/Page";
 import { SkeletonPostItem } from "../../../components/skeleton";
-
 // sections
 import { BlogPostCard, BlogPostsSearch, BlogPostsSort } from "../../../sections/@dashboard/blog";
 

@@ -9,6 +9,7 @@ import { isValidToken, setSession } from '../utils/jwt';
 const initialState = {
   isAuthenticated: false,
   isInitialized: false,
+  isVerified: false,
   user: null,
 };
 
@@ -34,6 +35,7 @@ const handlers = {
   LOGOUT: (state) => ({
     ...state,
     isAuthenticated: false,
+    isVerified: false,
     user: null,
   }),
   REGISTER: (state, action) => {
@@ -45,6 +47,12 @@ const handlers = {
       user,
     };
   },
+  RESET_PASSWORD: (state) => ({
+    ...state,
+    isAuthenticated: false,
+    isVerified: true,
+    user: null,
+  }),
 };
 
 const reducer = (state, action) => (handlers[action.type] ? handlers[action.type](state, action) : state);
@@ -55,6 +63,7 @@ const AuthContext = createContext({
   login: () => Promise.resolve(),
   logout: () => Promise.resolve(),
   register: () => Promise.resolve(),
+  validateConfirmationCode: () => Promise.resolve(),
 });
 
 // ----------------------------------------------------------------------
@@ -140,6 +149,16 @@ function AuthProvider({ children }) {
     });
   };
 
+  const validateConfirmationCode = async (data) => {
+    const response = await axios.post('/verify-code', data);
+
+    if (response.status === 200) {
+      dispatch({
+        type: 'RESET_PASSWORD',
+      });
+    }
+  };
+
   const logout = async () => {
     setSession(null);
     dispatch({ type: 'LOGOUT' });
@@ -153,6 +172,7 @@ function AuthProvider({ children }) {
         login,
         logout,
         register,
+        validateConfirmationCode,
       }}
     >
       {children}

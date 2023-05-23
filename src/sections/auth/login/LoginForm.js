@@ -1,19 +1,22 @@
-import * as Yup from 'yup';
-import { useState } from 'react';
+import * as Yup from "yup";
+import { useState } from "react";
 
 // form
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 // @mui
-import { Stack, Alert, IconButton, InputAdornment } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+import { Alert, IconButton, InputAdornment, Link, Stack } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 
 // hooks
-import useAuth from '../../../hooks/useAuth';
-import useIsMountedRef from '../../../hooks/useIsMountedRef';
+import useAuth from "../../../hooks/useAuth";
+import useIsMountedRef from "../../../hooks/useIsMountedRef";
 // components
-import Iconify from '../../../components/Iconify';
-import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
+import Iconify from "../../../components/Iconify";
+import { FormProvider, RHFCheckbox, RHFTextField } from "../../../components/hook-form";
+import NextLink from "next/link";
+import { PATH_AUTH, PATH_DASHBOARD } from "../../../routes/paths";
+import { router } from "next/client";
 
 // ----------------------------------------------------------------------
 
@@ -53,6 +56,7 @@ export default function LoginForm() {
   const onSubmit = async (data) => {
     try {
       await login(data);
+      await router.push(PATH_DASHBOARD.root);
     } catch (error) {
       console.error(error);
       reset();
@@ -90,9 +94,9 @@ export default function LoginForm() {
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
         <RHFCheckbox name="remember" label="Remember me" />
-        {/*<NextLink href={PATH_AUTH.resetPassword} passHref>*/}
-        {/*  <Link variant="subtitle2">Forgot password?</Link>*/}
-        {/*</NextLink>*/}
+        <NextLink href={PATH_AUTH.resetPassword} passHref>
+          <Link variant="subtitle2">Forgot password?</Link>
+        </NextLink>
       </Stack>
 
       <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>

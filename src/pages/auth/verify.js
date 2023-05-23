@@ -2,7 +2,7 @@
 import NextLink from 'next/link';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Button, Container, Link, Typography } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
 // routes
 import { PATH_AUTH } from '../../routes/paths';
 // layouts
@@ -50,20 +50,13 @@ export default function VerifyCode() {
               Please check your email!
             </Typography>
             <Typography sx={{ color: 'text.secondary' }}>
-              We have emailed a 6-digit confirmation code to acb@domain, please enter the code in below box to verify
-              your email.
+              We have emailed a 6-digit confirmation code to you, please enter the code in below box to verify your
+              email.
             </Typography>
 
             <Box sx={{ mt: 5, mb: 3 }}>
               <VerifyCodeForm />
             </Box>
-
-            <Typography variant="body2" align="center">
-              Don’t have a code? &nbsp;
-              <Link variant="subtitle2" underline="none" onClick={() => {}}>
-                Resend code
-              </Link>
-            </Typography>
           </Box>
         </Container>
       </RootStyle>

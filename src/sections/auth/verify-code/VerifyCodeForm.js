@@ -4,13 +4,13 @@ import { useEffect } from 'react';
 // next
 import { useRouter } from 'next/router';
 // form
-import { useForm, Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { OutlinedInput, Stack } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { PATH_AUTH } from '../../../routes/paths';
 // routes
-import { PATH_DASHBOARD } from '../../../routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -60,10 +60,9 @@ export default function VerifyCodeForm() {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       console.log('code:', Object.values(data).join(''));
-
+      push(PATH_AUTH.changePassword);
       enqueueSnackbar('Verify success!');
-
-      push(PATH_DASHBOARD.root);
+      
     } catch (error) {
       console.error(error);
     }

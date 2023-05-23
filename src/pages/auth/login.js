@@ -7,8 +7,6 @@ import { Box, Card, Container, Link, Stack, Typography } from "@mui/material";
 import { PATH_AUTH } from "../../routes/paths";
 // hooks
 import useResponsive from "../../hooks/useResponsive";
-// guards
-import GuestGuard from "../../guards/GuestGuard";
 // components
 import Page from "../../components/Page";
 import Logo from "../../components/Logo";
@@ -66,30 +64,29 @@ export default function Login() {
   const mdUp = useResponsive('up', 'md');
 
   return (
-    <GuestGuard>
-      <Page title="Login">
-        <RootStyle>
-          <HeaderStyle>
-            <Logo />
+    <Page title="Login">
+      <RootStyle>
+        <HeaderStyle>
+          <Logo />
 
-            {smUp && (
-              <Typography variant="body2" sx={{ mt: { md: -2 } }}>
-                Don’t have an account? {''}
-                <NextLink href={PATH_AUTH.register} passHref>
-                  <Link variant="subtitle2">Get started</Link>
-                </NextLink>
-              </Typography>
-            )}
-          </HeaderStyle>
-
-          {mdUp && (
-            <SectionStyle>
-              <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-                Hi, Welcome Back
-              </Typography>
-              <Image src={'/illustration_signin.png'} alt="login" />
-            </SectionStyle>
+          {smUp && (
+            <Typography variant="body2" sx={{ mt: { md: -2 } }}>
+              Don’t have an account? {''}
+              <NextLink href={PATH_AUTH.register} passHref>
+                <Link variant="subtitle2">Get started</Link>
+              </NextLink>
+            </Typography>
           )}
+        </HeaderStyle>
+
+        {mdUp && (
+          <SectionStyle>
+            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
+              Hi, Welcome Back
+            </Typography>
+            <Image src={'/illustration_signin.png'} alt="login" />
+          </SectionStyle>
+        )}
 
           <Container maxWidth="sm">
             <ContentStyle>
@@ -102,20 +99,19 @@ export default function Login() {
                 </Box>
               </Stack>
 
-              <LoginForm />
+            <LoginForm />
 
-              {!smUp && (
-                <Typography variant="body2" align="center" sx={{ mt: 3 }}>
-                  Don’t have an account?{' '}
-                  <NextLink href={PATH_AUTH.register} passHref>
-                    <Link variant="subtitle2">Get started</Link>
-                  </NextLink>
-                </Typography>
-              )}
-            </ContentStyle>
-          </Container>
-        </RootStyle>
-      </Page>
-    </GuestGuard>
+            {!smUp && (
+              <Typography variant="body2" align="center" sx={{ mt: 3 }}>
+                Don’t have an account?{' '}
+                <NextLink href={PATH_AUTH.register} passHref>
+                  <Link variant="subtitle2">Get started</Link>
+                </NextLink>
+              </Typography>
+            )}
+          </ContentStyle>
+        </Container>
+      </RootStyle>
+    </Page>
   );
 }
